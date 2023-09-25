@@ -24,7 +24,8 @@ export async function POST(req: Request) {
   let event: Stripe.Event;
 
   try {
-    if (!sig || !webhookSecret) return;
+    if (!sig || !webhookSecret)
+      return new Response('Webhook secret not found.', { status: 400 });
     // If this throws errors - check if set correct secret https://github.com/vercel/nextjs-subscription-payments/issues/240#issuecomment-1712537687
     event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
   } catch (err: any) {
