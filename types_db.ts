@@ -178,23 +178,50 @@ export interface Database {
         Row: {
           avatar_url: string | null
           billing_address: Json | null
-          full_name: string | null
+          bio: string | null
+          city: string | null
+          email_visible: boolean | null
           id: string
+          job_role: string
+          linkedin: string | null
+          name: string
+          organization: string | null
           payment_method: Json | null
+          surename: string
+          website: string | null
+          years_of_experience: number | null
         }
         Insert: {
           avatar_url?: string | null
           billing_address?: Json | null
-          full_name?: string | null
+          bio?: string | null
+          city?: string | null
+          email_visible?: boolean | null
           id: string
+          job_role: string
+          linkedin?: string | null
+          name: string
+          organization?: string | null
           payment_method?: Json | null
+          surename: string
+          website?: string | null
+          years_of_experience?: number | null
         }
         Update: {
           avatar_url?: string | null
           billing_address?: Json | null
-          full_name?: string | null
+          bio?: string | null
+          city?: string | null
+          email_visible?: boolean | null
           id?: string
+          job_role?: string
+          linkedin?: string | null
+          name?: string
+          organization?: string | null
           payment_method?: Json | null
+          surename?: string
+          website?: string | null
+          years_of_experience?: number | null
         }
         Relationships: [
           {
