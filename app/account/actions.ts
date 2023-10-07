@@ -18,6 +18,9 @@ export async function update(formData: FormData) {
   const job_role_other = formData.get('job_role_other') as string;
   const years_of_experience = formData.get('years_of_experience') as string;
   const city = formData.get('city') as string;
+  const bio = formData.get('bio') as string;
+  const linkedin = formData.get('linkedin') as string;
+  const website = formData.get('website') as string;
 
   const { error: usersError } = await supabase
     .from('users')
@@ -27,7 +30,10 @@ export async function update(formData: FormData) {
       organization,
       years_of_experience: parseInt(years_of_experience),
       city,
-      job_role: job_role_other ? job_role_other : job_role
+      job_role: job_role_other ? job_role_other : job_role,
+      bio,
+      linkedin,
+      website
     })
     .eq('id', user?.id);
 
@@ -39,6 +45,8 @@ export async function update(formData: FormData) {
   if (usersError || userError) {
     return { message: 'Failed to update' };
   }
+
+  console.log(`User ${user?.id} profile updated`);
 
   revalidatePath('/account');
 }

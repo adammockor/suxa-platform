@@ -10,19 +10,14 @@ import { redirect } from 'next/navigation';
 import { update } from './actions';
 import Card from './Card';
 import CardJob from './CardJob';
+import { isUserLogged } from '../userAccess';
 
 export default async function Account() {
-  const [session, userDetails, subscription] = await Promise.all([
-    getSession(),
+  const [{ user, session }, userDetails, subscription] = await Promise.all([
+    isUserLogged(),
     getUserDetails(),
     getSubscription()
   ]);
-
-  const user = session?.user;
-
-  if (!session) {
-    return redirect('/signin');
-  }
 
   const subscriptionPrice =
     subscription &&
@@ -44,36 +39,29 @@ export default async function Account() {
           </p>
         </div>
       </div>
-      <form id="account" action={update} className="">
-        <div className="p-4">
-          <Card
-            title="Your Plan"
-            description={
-              subscription
-                ? `You are currently on the ${subscription?.prices?.products?.name} plan.`
-                : 'You are not currently subscribed to any plan.'
-            }
-            footer={<ManageSubscriptionButton session={session} />}
-          >
-            <div className="mt-8 mb-4 text-xl font-semibold">
-              {subscription ? (
-                `${subscriptionPrice}/${subscription?.prices?.interval}`
-              ) : (
-                <Link href="/">Choose your plan</Link>
-              )}
-            </div>
-          </Card>
-
-          <div className="w-full max-w-3xl m-auto my-8 flex">
-            <Button
-              variant="slim"
-              type="submit"
-              form="account"
-              className="ml-auto"
-            >
-              Update profile
-            </Button>
+      <div className="p-4">
+        <Card
+          title="Your Plan"
+          description={
+            subscription
+              ? `You are currently on the ${subscription?.prices?.products?.name} plan.`
+              : 'You are not currently subscribed to any plan.'
+          }
+          footer={<ManageSubscriptionButton session={session} />}
+        >
+          <div className="mt-8 mb-4 text-xl font-semibold">
+            {subscription ? (
+              `${subscriptionPrice}/${subscription?.prices?.interval}`
+            ) : (
+              <Link href="/">Choose your plan</Link>
+            )}
           </div>
+        </Card>
+        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+        <form id="profile" action={update} className="">
+          <h2 className="text-3xl font-extrabold text-white sm:text-center sm:text-5xl">
+            Profil
+          </h2>
           <CardName name={userDetails?.name} surename={userDetails?.surename} />
           <CardEmail email={user?.email} />
           <CardJob
@@ -84,8 +72,23 @@ export default async function Account() {
             }
             city={userDetails?.city ?? ''}
           />
-        </div>
-      </form>
+          <CardBio
+            bio={userDetails?.bio ?? ''}
+            linkedin={userDetails?.linkedin ?? ''}
+            website={userDetails?.website ?? ''}
+          />
+          <div className="w-full max-w-3xl m-auto my-8 flex">
+            <Button
+              variant="slim"
+              type="submit"
+              form="profile"
+              className="ml-auto"
+            >
+              Update profile
+            </Button>
+          </div>
+        </form>
+      </div>
     </section>
   );
 }
@@ -169,6 +172,84 @@ function CardName({ name, surename }: { name?: string; surename?: string }) {
             placeholder="Your surename"
             maxLength={64}
             required
+          />
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function CardBio({
+  bio,
+  linkedin,
+  website
+}: {
+  bio?: string;
+  linkedin?: string;
+  website?: string;
+}) {
+  return (
+    <Card
+      title="Your Name"
+      description="Please enter your name, or a display name you are comfortable with."
+      footer={
+        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
+          <p className="pb-4 sm:pb-0">
+            500 characters maximum for bio, 64 for rest
+          </p>
+        </div>
+      }
+    >
+      <div className="mt-8 mb-4 text-xl font-semibold flex gap-4">
+        <div className="w-full mt-4">
+          <label
+            htmlFor="bio"
+            className="block mb-2 text-sm font-medium text-white"
+          >
+            Bio
+          </label>
+          <textarea
+            name="bio"
+            className="w-full p-3 rounded-md bg-zinc-800"
+            defaultValue={bio ?? ''}
+            placeholder="Your bio"
+            maxLength={500}
+          />
+        </div>
+      </div>
+      <div className="mt-8 mb-4 text-xl font-semibold flex gap-4">
+        <div className="w-full mt-4">
+          <label
+            htmlFor="linkedin"
+            className="block mb-2 text-sm font-medium text-white"
+          >
+            Linkedin
+          </label>
+          <input
+            type="text"
+            name="linkedin"
+            className="w-full p-3 rounded-md bg-zinc-800"
+            defaultValue={linkedin}
+            placeholder="Your linkedin"
+            maxLength={64}
+          />
+        </div>
+      </div>
+      <div className="mt-8 mb-4 text-xl font-semibold flex gap-4">
+        <div className="w-full mt-4">
+          <label
+            htmlFor="website"
+            className="block mb-2 text-sm font-medium text-white"
+          >
+            Website
+          </label>
+          <input
+            type="text"
+            name="website"
+            className="w-full p-3 rounded-md bg-zinc-800"
+            defaultValue={website}
+            placeholder="Your website"
+            maxLength={64}
           />
         </div>
       </div>
