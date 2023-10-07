@@ -1,5 +1,5 @@
 .root {
-  @apply sticky top-0 bg-black z-40 transition-all duration-150 h-16 md:h-20;
+  @apply sticky top-0 bg-[#111] z-40 transition-all duration-150 h-16 md:h-20;
 }
 
 .link {
@@ -7,11 +7,11 @@
 }
 
 .link:hover {
-  @apply text-zinc-100;
+  @apply text-zinc-100 underline;
 }
 
 .link:focus {
-  @apply outline-none text-zinc-100 ring-2 ring-pink-500 ring-opacity-50;
+  @apply underline text-zinc-100 ring-2 ring-pink-500 ring-opacity-50;
 }
 
 .logo {

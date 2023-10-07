@@ -50,3 +50,7 @@ a {
 .height-screen-helper {
   height: calc(100vh - 80px);
 }
+
+a[href]:hover, a[href]:focus {
+  text-decoration: underline;
+}
