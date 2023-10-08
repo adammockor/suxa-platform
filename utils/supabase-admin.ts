@@ -181,7 +181,9 @@ const manageSubscriptionStatusChange = async (
 async function getMembers() {
   const { data, error } = await supabaseAdmin
     .from('subscriptions')
-    .select('users (id, name, surename, job_role, email_visible, organization)')
+    .select(
+      'users (id, name, surename, job_role, email_visible, organization, years_of_experience, bio, linkedin, website, city)'
+    )
     .eq('status', 'active');
 
   if (!data) {
