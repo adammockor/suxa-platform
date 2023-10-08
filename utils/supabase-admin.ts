@@ -178,9 +178,41 @@ const manageSubscriptionStatusChange = async (
     );
 };
 
+async function getMembers() {
+  const { data, error } = await supabaseAdmin
+    .from('subscriptions')
+    .select('users (id, name, surename, job_role, email_visible)')
+    .eq('status', 'active');
+
+  if (!data) {
+    return;
+  }
+
+  const users = await Promise.all(
+    data.map(async (item) => {
+      let email;
+
+      if (item.users?.email_visible) {
+        const authUser = await supabaseAdmin.auth.admin.getUserById(
+          item.users.id
+        );
+
+        email = authUser.data.user?.email;
+      }
+
+      return { ...item.users, email };
+    })
+  );
+
+  if (error) throw error;
+
+  return users;
+}
+
 export {
   upsertProductRecord,
   upsertPriceRecord,
   createOrRetrieveCustomer,
-  manageSubscriptionStatusChange
+  manageSubscriptionStatusChange,
+  getMembers
 };
