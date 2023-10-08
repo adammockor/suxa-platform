@@ -55,6 +55,6 @@ html {
   scroll-padding-top: 100px;
 }
 
-a[href]:hover, a[href]:focus {
+a[href]:not([class]) {
   text-decoration: underline;
 }

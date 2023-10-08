@@ -1,20 +1,57 @@
-import { getSession, getSubscription } from './supabase-server';
+import { getSession, getSubscription, getUserDetails } from './supabase-server';
 import { redirect } from 'next/navigation';
 import Card from './profile/Card';
 import { getMembers } from '@/utils/supabase-admin';
 import Link from 'next/link';
+import button from '../components/ui/Button/Button.module.css';
+import cn from 'classnames';
 
 export default async function Dashboard() {
-  const [session, subscription, members] = await Promise.all([
+  const [session, subscription, members, userDetails] = await Promise.all([
     getSession(),
     getSubscription(),
-    getMembers()
+    getMembers(),
+    getUserDetails()
   ]);
 
-  if (!session || !subscription) {
+  let profileIncomplete =
+    !userDetails?.job_role || !userDetails?.name || !userDetails?.surename;
+
+  if (!session) {
     redirect('/profile');
   }
 
+  if (profileIncomplete || !subscription) {
+    return (
+      <section className="mb-3">
+        <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-24 lg:px-8">
+          <div className="sm:align-center sm:flex sm:flex-col">
+            <p className="max-w-2xl m-auto mb-8 mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
+              🙏 Prosíme,{' '}
+              {[
+                profileIncomplete && 'vyplňte povinné informácie v profile',
+                !subscription && 'zaplaťte členský poplatok'
+              ]
+                .filter(Boolean)
+                .join(' a ')}
+            </p>
+            <Link
+              className={cn(
+                button.root,
+                button.cta,
+                button.slim,
+                'max-w-max',
+                'self-center'
+              )}
+              href={'/profile'}
+            >
+              Ísť do profilu
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="mb-3">
       <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-24 lg:px-8">

@@ -9,7 +9,7 @@ function NavMenu() {
   const currentRoute = usePathname();
 
   return (
-    <nav className="hidden ml-6 space-x-2 lg:block">
+    <nav className="ml-6 space-x-2 block">
       <Link href="/" className={cn(s.link, currentRoute === '/' && s.current)}>
         Dashboard
       </Link>
