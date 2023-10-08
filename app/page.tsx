@@ -1,6 +1,3 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/types_db';
-import { cookies } from 'next/headers';
 import { getSession, getSubscription } from './supabase-server';
 import { redirect } from 'next/navigation';
 import Card from './profile/Card';
@@ -49,4 +46,4 @@ function MemberCard({ member }) {
       Pracovná pozícia: {member.job_role}
     </Card>
   );
-} 
+}

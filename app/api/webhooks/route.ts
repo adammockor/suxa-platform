@@ -3,8 +3,10 @@ import { stripe } from '@/utils/stripe';
 import {
   upsertProductRecord,
   upsertPriceRecord,
-  manageSubscriptionStatusChange
+  manageSubscriptionStatusChange,
+  getMembers
 } from '@/utils/supabase-admin';
+import { updateMembers } from '@/utils/slite';
 
 const relevantEvents = new Set([
   'product.created',
@@ -53,6 +55,7 @@ export async function POST(req: Request) {
             subscription.customer as string,
             event.type === 'customer.subscription.created'
           );
+
           break;
         case 'checkout.session.completed':
           const checkoutSession = event.data.object as Stripe.Checkout.Session;
@@ -63,6 +66,17 @@ export async function POST(req: Request) {
               checkoutSession.customer as string,
               true
             );
+          }
+          try {
+            const members = await getMembers();
+            if (!members?.length) {
+              console.log('No members');
+              break;
+            }
+
+            await updateMembers(members);
+          } catch (e) {
+            console.log('Error in updating Slite members', e);
           }
           break;
         default:
