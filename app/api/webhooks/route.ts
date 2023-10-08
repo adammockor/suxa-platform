@@ -49,12 +49,23 @@ export async function POST(req: Request) {
         case 'customer.subscription.created':
         case 'customer.subscription.updated':
         case 'customer.subscription.deleted':
+          console.log('event.data.object: ', event.data.object);
+
           const subscription = event.data.object as Stripe.Subscription;
           await manageSubscriptionStatusChange(
             subscription.id,
             subscription.customer as string,
             event.type === 'customer.subscription.created'
           );
+
+          // Update Slite members
+          const members = await getMembers();
+          if (!members?.length) {
+            console.log('No members');
+            break;
+          }
+
+          await updateMembers(members);
 
           break;
         case 'checkout.session.completed':
@@ -66,17 +77,6 @@ export async function POST(req: Request) {
               checkoutSession.customer as string,
               true
             );
-          }
-          try {
-            const members = await getMembers();
-            if (!members?.length) {
-              console.log('No members');
-              break;
-            }
-
-            await updateMembers(members);
-          } catch (e) {
-            console.log('Error in updating Slite members', e);
           }
           break;
         default:

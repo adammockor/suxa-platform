@@ -192,6 +192,7 @@ async function getMembers() {
     data.map(async (item) => {
       let email;
 
+      // we should get this in batch - custom Supabase RPC function?
       if (item.users?.email_visible) {
         const authUser = await supabaseAdmin.auth.admin.getUserById(
           item.users.id
