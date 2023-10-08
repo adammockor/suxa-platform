@@ -5,28 +5,29 @@ import { PropsWithChildren } from 'react';
 import 'styles/main.css';
 
 const meta = {
-  title: 'Next.js Subscription Starter',
-  description: 'Brought to you by Vercel, Stripe, and Supabase.',
-  cardImage: '/og.png',
+  title: 'SUXA - Členská platforma',
+  description: 'SUXA - Členská platforma',
   robots: 'follow, index',
-  favicon: '/favicon.ico',
-  url: 'https://subscription-starter.vercel.app',
+  icon: '/favicon.png',
+  apple: '/favicon-app.png',
+  url: 'https://suxa-platform.vercel.app/',
   type: 'website'
 };
 
 export const metadata = {
   title: meta.title,
   description: meta.description,
-  cardImage: meta.cardImage,
   robots: meta.robots,
-  favicon: meta.favicon,
+  icons: {
+    icon: meta.icon,
+    apple: meta.apple
+  },
   url: meta.url,
   type: meta.type,
   openGraph: {
     url: meta.url,
     title: meta.title,
     description: meta.description,
-    cardImage: meta.cardImage,
     type: meta.type,
     site_name: meta.title
   },
@@ -34,8 +35,7 @@ export const metadata = {
     card: 'summary_large_image',
     site: '@vercel',
     title: meta.title,
-    description: meta.description,
-    cardImage: meta.cardImage
+    description: meta.description
   }
 };
 
@@ -48,7 +48,6 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-[#111] loading">
         <SupabaseProvider>
-          {/* @ts-expect-error */}
           <Navbar />
           <main
             id="skip"

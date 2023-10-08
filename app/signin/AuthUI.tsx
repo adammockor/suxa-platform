@@ -12,8 +12,22 @@ export default function AuthUI() {
       <Auth
         supabaseClient={supabase}
         providers={[]}
-        redirectTo={`${getURL()}/auth/callback`}
+        view="magic_link"
         magicLink={true}
+        showLinks={false}
+        redirectTo={`${getURL()}/auth/callback`}
+        localization={{
+          variables: {
+            magic_link: {
+              email_input_label: 'Email',
+              email_input_placeholder: 'Vaša emailová adresa',
+              button_label: 'Pošli magic link',
+              loading_button_label: 'Posielam magic link ...',
+              link_text: 'Pošli magic link email',
+              confirmation_text: 'Nájdi magic link vo svojom emaile'
+            }
+          }
+        }}
         appearance={{
           theme: ThemeSupa,
           variables: {

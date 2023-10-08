@@ -13,11 +13,8 @@ export default function SignOutButton() {
     router.refresh()
   }
   return (
-    <button
-      className={s.link}
-      onClick={handleSignOut}
-    >
-      Sign out
+    <button className={s.link} onClick={handleSignOut}>
+      Odhlásiť sa
     </button>
   );
 }

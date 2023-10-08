@@ -24,6 +24,9 @@ export default async function Navbar() {
               <Logo />
             </Link>
             <nav className="hidden ml-6 space-x-2 lg:block">
+              <Link href="/" className={s.link}>
+                Dashboard
+              </Link>
               {user && (
                 <Link href="/profile" className={s.link}>
                   Profil
@@ -36,7 +39,7 @@ export default async function Navbar() {
               <SignOutButton />
             ) : (
               <Link href="/signin" className={s.link}>
-                Sign in
+                Prihlásiť sa
               </Link>
             )}
           </div>

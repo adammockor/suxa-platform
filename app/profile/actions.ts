@@ -6,10 +6,14 @@ import { Database } from '@/types_db';
 import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 
-export async function update(formData: FormData) {
+export async function update(_: any, formData: FormData) {
   const supabase = createServerActionClient<Database>({ cookies });
   const session = await getSession();
   const user = session?.user;
+
+  if (!user) {
+    return { message: 'Nepodarilo sa aktualizovať profil' };
+  }
 
   const name = formData.get('name') as string;
   const surename = formData.get('surename') as string;
@@ -21,6 +25,7 @@ export async function update(formData: FormData) {
   const bio = formData.get('bio') as string;
   const linkedin = formData.get('linkedin') as string;
   const website = formData.get('website') as string;
+  const email_visible = !!formData.get('email_visible') as boolean;
 
   const { error: usersError } = await supabase
     .from('users')
@@ -33,20 +38,34 @@ export async function update(formData: FormData) {
       job_role: job_role_other ? job_role_other : job_role,
       bio,
       linkedin,
-      website
+      website,
+      email_visible
     })
     .eq('id', user?.id);
 
   const newEmail = formData.get('email') as string;
-  const { error: userError } = await supabase.auth.updateUser({
-    email: newEmail
-  });
 
-  if (usersError || userError) {
-    return { message: 'Failed to update' };
+  if (user?.email !== newEmail) {
+    const { error: userError } = await supabase.auth.updateUser({
+      email: newEmail
+    });
+
+    if (userError) {
+      console.log(userError);
+
+      return { message: 'Nepodarilo sa aktualizovať profil' };
+    }
+  }
+
+  if (usersError) {
+    console.log(usersError);
+
+    return { message: 'Nepodarilo sa aktualizovať profil' };
   }
 
   console.log(`User ${user?.id} profile updated`);
 
-  revalidatePath('/account');
+  revalidatePath('/profile');
+
+  return { message: 'Profil aktualizovaný' };
 }

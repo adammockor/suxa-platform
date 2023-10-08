@@ -46,23 +46,23 @@ function CardJob({
 
   return (
     <Card
-      title="Your Job"
-      description="Please enter your current work experience"
+      title="Vaša práca"
+      description="Vyplňte svoju aktuálnu pracovnú skúsenosť"
     >
-      <div className="mt-8 mb-4 text-xl font-semibold flex gap-4">
+      <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
         <div className="w-1/2 mt-4">
           <label
             htmlFor="organization"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Organization
+            Organizácia
           </label>
           <input
             type="text"
             name="organization"
             className="w-full p-3 rounded-md bg-zinc-800"
             defaultValue={organization}
-            placeholder="Your organization"
+            placeholder="Organizácia"
             maxLength={64}
           />
         </div>
@@ -71,25 +71,25 @@ function CardJob({
             htmlFor="city"
             className="block mb-2 text-sm font-medium text-white"
           >
-            City
+            Mesto
           </label>
           <input
             type="text"
             name="city"
             className="w-full p-3 rounded-md bg-zinc-800"
             defaultValue={city}
-            placeholder="Your city"
+            placeholder="Mesto"
             maxLength={64}
           />
         </div>
       </div>
-      <div className="mt-4 mb-4 text-xl font-semibold flex gap-4">
+      <div className="mb-2 text-xl font-semibold flex gap-4">
         <div className="w-1/2 mt-4">
           <label
             htmlFor="job_role"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Job role
+            Pracovná rola (povinné)
           </label>
           <select
             name="job_role"
@@ -114,34 +114,34 @@ function CardJob({
               htmlFor="job_role_other"
               className="block mb-2 text-sm font-medium text-white"
             >
-              Other job role
+              Iná pracovná rola
             </label>
             <input
               type="text"
               name="job_role_other"
               className="w-full p-3 rounded-md bg-zinc-800"
               defaultValue={role === 'Iné' ? '' : role}
-              placeholder="Job role"
+              placeholder="Pracovná rola"
               maxLength={64}
               required
             />
           </div>
         ) : null}
       </div>
-      <div className="mt-4 mb-4 text-xl font-semibold flex gap-4">
+      <div className="mb-2 text-xl font-semibold flex gap-4">
         <div className="w-1/2 mt-4">
           <label
             htmlFor="years_of_experience"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Years of experience
+            Počet rokov skúsenosťí
           </label>
           <input
             type="text"
             name="years_of_experience"
             className="w-full p-3 rounded-md bg-zinc-800"
             defaultValue={years_of_experience}
-            placeholder="Your years of experience"
+            placeholder="Počet rokov skúsenosťí"
             pattern="[0-9]+"
             maxLength={64}
           />
