@@ -33,8 +33,9 @@ export default function AuthUI() {
           variables: {
             default: {
               colors: {
-                brand: '#404040',
-                brandAccent: '#52525b'
+                brand: '#017aff',
+                brandAccent: '#3495ff',
+                inputText: '#fff'
               }
             }
           }

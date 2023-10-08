@@ -30,6 +30,7 @@ export default function ManageSubscriptionButton({ session }: Props) {
       </p>
       <Button
         variant="slim"
+        cta={false}
         disabled={!session}
         onClick={redirectToCustomerPortal}
       >

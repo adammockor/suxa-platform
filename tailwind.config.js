@@ -12,6 +12,12 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans]
+      },
+      colors: {
+        brand: {
+          DEFAULT: '#017aff',
+          light: '#3495ff'
+        }
       }
     }
   },

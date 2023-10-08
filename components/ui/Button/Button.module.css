@@ -1,9 +1,9 @@
 .root {
-  @apply bg-white text-zinc-800 cursor-pointer inline-flex px-10 rounded-sm leading-6  transition ease-in-out duration-150 shadow-sm font-semibold text-center justify-center uppercase py-4 border border-transparent items-center;
+  @apply bg-zinc-500 text-white cursor-pointer inline-flex px-10 rounded-sm leading-6  transition ease-in-out duration-150 shadow-sm font-semibold text-center justify-center uppercase py-4 border border-transparent items-center;
 }
 
 .root:hover {
-  @apply bg-zinc-800 text-white border border-white;
+  @apply bg-zinc-600 text-white border border-white;
 }
 
 .root:focus {
@@ -15,8 +15,17 @@
 }
 
 .loading {
-  @apply bg-zinc-700 text-zinc-500 border-zinc-600 cursor-not-allowed;
+  @apply bg-brand-light text-white border-zinc-600 cursor-not-allowed;
 }
+
+.cta {
+ @apply bg-brand text-white;
+}
+
+.cta:hover {
+  @apply bg-brand-light text-white border border-white;
+}
+
 
 .slim {
   @apply py-2 transform-none normal-case;

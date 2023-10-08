@@ -9,6 +9,7 @@ import LoadingDots from '@/components/ui/LoadingDots';
 import styles from './Button.module.css';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  cta?: boolean;
   variant?: 'slim' | 'flat';
   active?: boolean;
   width?: number;
@@ -19,6 +20,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, Props>((props, buttonRef) => {
   const {
     className,
+    cta = true,
     variant = 'flat',
     children,
     active,
@@ -33,6 +35,7 @@ const Button = forwardRef<HTMLButtonElement, Props>((props, buttonRef) => {
   const rootClassName = cn(
     styles.root,
     {
+      [styles.cta]: cta,
       [styles.slim]: variant === 'slim',
       [styles.loading]: loading,
       [styles.disabled]: disabled

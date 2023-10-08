@@ -98,7 +98,7 @@ function CardSubscription({
           disabled={false}
           loading={priceIdLoading === price.id}
           onClick={() => handleCheckout(price)}
-          className="block w-full py-2 mt-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900 "
+          className="block w-full mt-2"
         >
           Zaplatiť členský poplatok
         </Button>
