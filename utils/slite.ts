@@ -30,7 +30,7 @@ async function updateMembers(members: Member[]) {
     body: JSON.stringify({
       title: 'Členovia SUXA',
       url: 'https://suxa-platform.vercel.app/',
-      content: members.map((member) => getMemberMDTemplate(member)).join('\\')
+      content: members.map((member) => getMemberMDTemplate(member)).join('\\n')
     })
   });
 
