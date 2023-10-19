@@ -1,9 +1,8 @@
 'use client';
 
-import Card from './Card';
+import Card from '../profile/Card';
 import { Database } from '@/types_db';
 import ManageSubscriptionButton from './ManageSubscriptionButton';
-import Link from 'next/link';
 import { Session } from '@supabase/supabase-js';
 import { getStripe } from '@/utils/stripe-client';
 import { postData } from '@/utils/helpers';

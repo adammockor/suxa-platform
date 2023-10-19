@@ -12,7 +12,7 @@ export async function update(_: any, formData: FormData) {
   const user = session?.user;
 
   if (!user) {
-    return { message: 'Nepodarilo sa aktualizovať profil' };
+    return { type: 'error' };
   }
 
   const name = formData.get('name') as string;
@@ -53,19 +53,20 @@ export async function update(_: any, formData: FormData) {
     if (userError) {
       console.log(userError);
 
-      return { message: 'Nepodarilo sa aktualizovať profil' };
+      return { type: 'error' };
     }
   }
 
   if (usersError) {
     console.log(usersError);
 
-    return { message: 'Nepodarilo sa aktualizovať profil' };
+    return { type: 'error' };
   }
 
   console.log(`User ${user?.id} profile updated`);
 
   revalidatePath('/profile');
 
-  return { message: 'Profil aktualizovaný' };
+  return { type: 'success' };
 }
+

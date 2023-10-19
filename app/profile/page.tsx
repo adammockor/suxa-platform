@@ -4,7 +4,6 @@ import {
   getActiveProductsWithPrices,
   getSession
 } from '@/app/supabase-server';
-import CardSubscription from './CardSubscription';
 import { redirect } from 'next/navigation';
 import ProfileForm from './ProfileForm';
 
@@ -45,14 +44,6 @@ export default async function Profile() {
         </div>
       </div>
       <div className="p-4">
-        <h2 className="text-3xl font-extrabold text-white sm:text-center sm:text-5xl">
-          Vaše členské
-        </h2>
-        <CardSubscription
-          session={session}
-          subscription={subscription}
-          products={products}
-        />
         <hr className="h-px my-8 bg-zinc-700 border-0 dark:bg-gray-700" />
         <ProfileForm userDetails={userDetails} user={user} />
       </div>

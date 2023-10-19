@@ -43,7 +43,7 @@ export async function POST(req: Request) {
           trial_from_plan: true,
           metadata
         },
-        success_url: `${getURL()}/profile`,
+        success_url: `${getURL()}/`,
         cancel_url: `${getURL()}/`
       });
 

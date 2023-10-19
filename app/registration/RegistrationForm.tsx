@@ -1,23 +1,24 @@
 'use client';
 
+import { Database } from '@/types_db';
+import { User } from '@supabase/supabase-js';
 import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 import { experimental_useFormState as useFormState } from 'react-dom';
+import { update } from '../profile/actions';
+import ProfileFormFactory from '../profile/ProfileFormFactory';
 import Button from '@/components/ui/Button';
-import { update } from './actions';
-import { User } from '@supabase/supabase-js';
-import { Database } from '@/types_db';
-import ProfileFormFactory from './ProfileFormFactory';
-
+import { redirect } from 'next/navigation';
 const initialState = {
   type: null
 };
 
-function ProfileForm({
+function RegistrationForm({
   userDetails,
   user
 }: {
   userDetails: Database['public']['Tables']['users']['Row'];
   user: User;
+  redirectOnSuccess?: string;
 }) {
   const [{ type }, formAction] = useFormState(update, initialState);
 
@@ -31,14 +32,12 @@ function ProfileForm({
   );
 }
 
-export default ProfileForm;
-
 const SubmitButton = ({ type }: { type: string }) => {
   const { pending } = useFormStatus();
 
   let message;
   if (type === 'success') {
-    message = 'Profil aktualizovany';
+    redirect('/support');
   }
 
   if (type === 'error') {
@@ -49,9 +48,10 @@ const SubmitButton = ({ type }: { type: string }) => {
     <>
       {!pending ? <span className="ml-auto mr-0">{message}</span> : null}
       <Button variant="slim" type="submit" form="profile" className="ml-auto">
-        {pending ? 'Aktualizujem profil' : 'Aktualizovať profil'}
+        {pending ? 'Registrujem profil' : 'Registrovať sa'}
       </Button>
     </>
   );
 };
 
+export default RegistrationForm;

@@ -19,6 +19,12 @@ function NavMenu() {
       >
         Profil
       </Link>
+      <Link
+        href="/support"
+        className={cn(s.link, currentRoute === '/support' && s.current)}
+      >
+        Support
+      </Link>
     </nav>
   );
 }

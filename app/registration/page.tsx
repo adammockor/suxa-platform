@@ -1,29 +1,17 @@
-import {
-  getUserDetails,
-  getSubscription,
-  getSession
-} from '@/app/supabase-server';
+import { getUserDetails, getSession } from '@/app/supabase-server';
 import { redirect } from 'next/navigation';
-import ProfileForm from '../profile/ProfileForm';
+import RegistrationForm from './RegistrationForm';
 
-export default async function Profile() {
-  const [session, userDetails, subscription] = await Promise.all([
+export default async function Registration() {
+  const [session, userDetails] = await Promise.all([
     getSession(),
-    getUserDetails(),
-    getSubscription()
+    getUserDetails()
   ]);
 
   const user = session?.user;
 
   if (!user || !userDetails) {
     redirect('/signin');
-  }
-
-  let profileComplete =
-    userDetails?.job_role && userDetails?.name && userDetails?.surename;
-
-  if (profileComplete) {
-    redirect('/profile');
   }
 
   return (
@@ -36,7 +24,7 @@ export default async function Profile() {
         </div>
       </div>
       <div className="p-4">
-        <ProfileForm userDetails={userDetails} user={user} />
+        <RegistrationForm userDetails={userDetails} user={user} />
       </div>
     </section>
   );
