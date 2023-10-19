@@ -18,7 +18,7 @@ export default async function Profile() {
 
   const user = session?.user;
 
-  if (!user) {
+  if (!user || !userDetails) {
     redirect('/signin');
   }
 
