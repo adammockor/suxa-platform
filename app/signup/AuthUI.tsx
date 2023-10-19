@@ -15,13 +15,13 @@ export default function AuthUI() {
         view="magic_link"
         magicLink={true}
         showLinks={false}
-        redirectTo={`${getURL()}/auth/callback?source=signin`}
+        redirectTo={`${getURL()}/auth/callback?source=signup`}
         localization={{
           variables: {
             magic_link: {
               email_input_label: 'Email',
               email_input_placeholder: 'Vaša emailová adresa',
-              button_label: 'Prihlásiť cez email',
+              button_label: 'Registrovať sa cez email',
               loading_button_label: 'Posielam magic link ...',
               link_text: 'Pošli magic link email',
               confirmation_text: 'Nájdi magic link vo svojom emaile'

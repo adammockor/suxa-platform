@@ -58,3 +58,7 @@ html {
 a[href]:not([class]) {
   text-decoration: underline;
 }
+
+h1 {
+  @apply text-4xl font-extrabold text-white sm:text-center sm:text-6xl mb-4;
+}

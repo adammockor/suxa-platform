@@ -6,14 +6,20 @@ import type { NextRequest } from 'next/server'
 import type { Database } from '@/types_db'
 
 export async function GET(request: NextRequest) {
-  const requestUrl = new URL(request.url)
-  const code = requestUrl.searchParams.get('code')
+  const requestUrl = new URL(request.url);
+  const code = requestUrl.searchParams.get('code');
+  const source = requestUrl.searchParams.get('source');
 
   if (code) {
-    const supabase = createRouteHandlerClient<Database>({ cookies })
-    await supabase.auth.exchangeCodeForSession(code)
+    const supabase = createRouteHandlerClient<Database>({ cookies });
+    await supabase.auth.exchangeCodeForSession(code);
+  }
+
+  let redirectUrl = requestUrl.origin;
+  if (source === 'signup') {
+    redirectUrl = `${redirectUrl}/registration`;
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin)
+  return NextResponse.redirect(redirectUrl);
 }

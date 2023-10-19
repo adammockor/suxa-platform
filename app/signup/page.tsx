@@ -13,9 +13,10 @@ export default async function SignIn() {
   return (
     <div className="mt-16">
       <div className="align-center">
-        <h1 className="text-center">Prihlásenie</h1>
+        <h1 className="text-center">Registrácia</h1>
         <p className="mb-8 text-center">
-          Pomocou emailu sa prihlásite do členskej zóny.
+          Prvým krokom registrácie nového člena SUXA je overenie emailovej
+          adresy.
         </p>
       </div>
       <div className="flex flex-col justify-between max-w-lg p-3 m-auto w-80 ">
