@@ -21,6 +21,11 @@ export default async function Registration() {
           <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
             Registrácia
           </h1>
+          <p>
+            Radi by sme ťa spoznali! Jedným z hlavných cieľov SUXA je networking
+            členov. Preto zbierame základné údaje, ktoré budú dostupné v zozname
+            členov.
+          </p>
         </div>
       </div>
       <div className="p-4">

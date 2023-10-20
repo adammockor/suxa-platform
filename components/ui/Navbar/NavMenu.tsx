@@ -23,7 +23,7 @@ function NavMenu() {
         href="/support"
         className={cn(s.link, currentRoute === '/support' && s.current)}
       >
-        Support
+        Členské
       </Link>
     </nav>
   );

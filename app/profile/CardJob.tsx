@@ -46,8 +46,8 @@ function CardJob({
 
   return (
     <Card
-      title="Vaša práca"
-      description="Vyplňte svoju aktuálnu pracovnú skúsenosť"
+      title="Vaše skúsenosti"
+      description="Aby sme mohli tvoriť lepšie komunity, zbierame niekoľko informácii o tvojich profesných skúsenostiach. Tieto údaje nám poskytujú aj lepší prehľad o našom odvetví."
     >
       <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
         <div className="w-1/2 mt-4">
@@ -55,14 +55,14 @@ function CardJob({
             htmlFor="organization"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Organizácia
+            Zamestnávateľ/škola
           </label>
           <input
             type="text"
             name="organization"
-            className="w-full p-3 rounded-md bg-zinc-800"
+            className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={organization}
-            placeholder="Organizácia"
+            placeholder="Zamestnávateľ/škola"
             maxLength={64}
           />
         </div>
@@ -76,7 +76,7 @@ function CardJob({
           <input
             type="text"
             name="city"
-            className="w-full p-3 rounded-md bg-zinc-800"
+            className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={city}
             placeholder="Mesto"
             maxLength={64}
@@ -93,7 +93,7 @@ function CardJob({
           </label>
           <select
             name="job_role"
-            className="w-full p-3 rounded-md bg-zinc-800"
+            className="w-full p-3 rounded-md bg-white text-black"
             placeholder="Your job role"
             value={getRoleSelectValue(role)}
             onChange={handleRoleChange}
@@ -119,7 +119,7 @@ function CardJob({
             <input
               type="text"
               name="job_role_other"
-              className="w-full p-3 rounded-md bg-zinc-800"
+              className="w-full p-3 rounded-md bg-white text-black"
               defaultValue={role === 'Iné' ? '' : role}
               placeholder="Pracovná rola"
               maxLength={64}
@@ -134,14 +134,14 @@ function CardJob({
             htmlFor="years_of_experience"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Počet rokov skúsenosťí
+            Počet rokov odborných skúsenosťí
           </label>
           <input
             type="text"
             name="years_of_experience"
-            className="w-full p-3 rounded-md bg-zinc-800"
+            className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={years_of_experience}
-            placeholder="Počet rokov skúsenosťí"
+            placeholder="Počet rokov odborných skúsenosťí"
             pattern="[0-9]+"
             maxLength={64}
           />

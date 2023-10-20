@@ -18,9 +18,6 @@ function ProfileFormFactory({
 }) {
   return (
     <form id="profile" action={action} className="">
-      <h2 className="text-3xl font-extrabold text-white sm:text-center sm:text-5xl">
-        O vás
-      </h2>
       <CardName name={userDetails?.name} surename={userDetails?.surename} />
       <CardEmail
         email={user?.email ?? ''}
@@ -37,6 +34,25 @@ function ProfileFormFactory({
         linkedin={userDetails?.linkedin ?? ''}
         website={userDetails?.website ?? ''}
       />
+      <CardFeedback />
+      <Card title="Spracovanie osobných údajov">
+        <div className="mt-4 text-xl flex gap-4">
+          <div className="w-full">
+            <div className="flex items-center mb-4">
+              <input
+                id="email_visible"
+                name="email_visible"
+                type="checkbox"
+                // defaultChecked={emailVisible}
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 round"
+              />
+              <label htmlFor="email_visible" className="ml-2">
+                Súhlasím so spracovaním údajov (povinné)
+              </label>
+            </div>
+          </div>
+        </div>
+      </Card>
       <div className="w-full max-w-3xl m-auto my-8 flex items-center justify-end gap-4">
         {submitButton}
       </div>
@@ -55,13 +71,8 @@ function CardEmail({
 }) {
   return (
     <Card
-      title="Váš email"
-      description="Vyplň váš prihlasovací email."
-      footer={
-        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0">Zmenu verifikujeme cez email.</p>
-        </div>
-      }
+      title="Kontaktné údaje"
+      description="E-mail bude vašim vstupom do komunity a budeme naň posielať SUXA newsletter. Môžete sa rozhodnúť nezobrazovať ho v zozname členov."
     >
       <div className="mt-4 mb-4 text-xl font-semibold flex gap-4">
         <div className="w-1/2 mt-4">
@@ -74,7 +85,7 @@ function CardEmail({
           <input
             type="text"
             name="email"
-            className="w-full p-3 rounded-md bg-zinc-800"
+            className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={email ?? ''}
             placeholder="Tvoj email"
             required
@@ -82,7 +93,7 @@ function CardEmail({
           />
         </div>
       </div>
-      <div className="mt-4 text-xl font-semibold flex gap-4">
+      <div className="mt-4 text-xl flex gap-4">
         <div className="w-1/2">
           <div className="flex items-center mb-4">
             <input
@@ -90,10 +101,10 @@ function CardEmail({
               name="email_visible"
               type="checkbox"
               defaultChecked={emailVisible}
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 round"
+              className="w-6 h-4 text-blue-600 bg-gray-100 border-gray-300 round"
             />
             <label htmlFor="email_visible" className="ml-2">
-              Email dostupný pre členov
+              Zobrazovať e-mail v zozname členov
             </label>
           </div>
         </div>
@@ -105,13 +116,8 @@ function CardEmail({
 function CardName({ name, surename }: { name?: string; surename?: string }) {
   return (
     <Card
-      title="Vaše meno"
-      description="Vypľňte vaše meno a priezvisko"
-      footer={
-        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0">Maximálne 64 znakov</p>
-        </div>
-      }
+      title="Meno a priezvisko"
+      description="Stávate sa súčasťou komunity, vaše meno bude dostupné všetkým ostatným členom."
     >
       <div className="mt-4 mb-4 text-xl font-semibold flex gap-4">
         <div className="w-full mt-4">
@@ -124,7 +130,7 @@ function CardName({ name, surename }: { name?: string; surename?: string }) {
           <input
             type="text"
             name="name"
-            className="w-full p-3 rounded-md bg-zinc-800"
+            className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={name ?? ''}
             placeholder="Meno"
             maxLength={64}
@@ -141,7 +147,7 @@ function CardName({ name, surename }: { name?: string; surename?: string }) {
           <input
             type="text"
             name="surename"
-            className="w-full p-3 rounded-md bg-zinc-800"
+            className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={surename}
             placeholder="Priezvisko"
             maxLength={64}
@@ -164,15 +170,8 @@ function CardBio({
 }) {
   return (
     <Card
-      title="Ďalšie informácie"
-      description="Ďalšie informácie o vás"
-      footer={
-        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0">
-            Maximálne 500 znakov v bio, 64 v ostatných poliach
-          </p>
-        </div>
-      }
+      title="Váš profil"
+      description="Doplňte detaily o Vás, ktoré pomôžu ostatným v komunite vás spoznať."
     >
       <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
         <div className="w-full mt-4">
@@ -180,13 +179,13 @@ function CardBio({
             htmlFor="bio"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Bio
+            O vás
           </label>
           <textarea
             name="bio"
-            className="w-full p-3 rounded-md bg-zinc-800"
+            className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={bio ?? ''}
-            placeholder="Bio"
+            placeholder="O vás"
             maxLength={500}
           />
         </div>
@@ -197,14 +196,14 @@ function CardBio({
             htmlFor="linkedin"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Linkedin
+            Linkedin profil
           </label>
           <input
             type="text"
             name="linkedin"
-            className="w-full p-3 rounded-md bg-zinc-800"
+            className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={linkedin}
-            placeholder="Linkedin"
+            placeholder="Linkedin profil url"
             maxLength={64}
           />
         </div>
@@ -215,15 +214,63 @@ function CardBio({
             htmlFor="website"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Osobná stránka
+            Osobný web
           </label>
           <input
             type="text"
             name="website"
-            className="w-full p-3 rounded-md bg-zinc-800"
+            className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={website}
-            placeholder="Stránka"
+            placeholder="Osobný web url"
             maxLength={64}
+          />
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function CardFeedback({}: {
+  bio?: string;
+  linkedin?: string;
+  website?: string;
+}) {
+  return (
+    <Card
+      title="Tvoje záujmy"
+      description="Radi by sme sa dozvedeli ako lepšie tvoriť SUXA pre teba. Povedz nám čo ťa zaujíma."
+    >
+      <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
+        <div className="w-full mt-4">
+          <label
+            htmlFor="bio"
+            className="block mb-2 text-sm font-medium text-white"
+          >
+            Aké obsahové témy ťa zaujímajú?
+          </label>
+          <textarea
+            name="bio"
+            className="w-full p-3 rounded-md bg-white text-black"
+            // defaultValue={bio ?? ''}
+            // placeholder="O vás"
+            maxLength={500}
+          />
+        </div>
+      </div>
+      <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
+        <div className="w-full mt-4">
+          <label
+            htmlFor="bio"
+            className="block mb-2 text-sm font-medium text-white"
+          >
+            Aké sú tvoje očakávania od členstva v SUXA?
+          </label>
+          <textarea
+            name="bio"
+            className="w-full p-3 rounded-md bg-white text-black"
+            // defaultValue={bio ?? ''}
+            // placeholder="O vás"
+            maxLength={500}
           />
         </div>
       </div>

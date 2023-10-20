@@ -77,13 +77,13 @@ function CardSubscription({
 
   return (
     <Card
-      title={`${subscription ? '✅ ' : '🔴 '}Ročný členský poplatok`}
+      title={`${subscription ? '✅ ' : ''}Ročný členský príspevok`}
       description={
         subscription
-          ? `Máte aktuálne zaplatený členský poplatok do: ${endPeriod}`
-          : 'Nemáte akutuálne zaplatený členský poplatok'
+          ? `Ďakujeme 💙 Ročný členský príspevok máte uhradený do: ${endPeriod}`
+          : 'Momentálne nemáte uhradený členský príspevok. (zalomit!) Zvážte, aký veľký príspevok je vo vašich silách. Minimálny je 5€.'
       }
-      footer={<ManageSubscriptionButton session={session} />}
+      // footer={<ManageSubscriptionButton session={session} />}
     >
       <div className="mt-4 mb-2 text-xl font-semibold">
         {subscription ? `${subscriptionPrice}/rok` : `${productPrice}/rok`}
@@ -99,7 +99,7 @@ function CardSubscription({
           onClick={() => handleCheckout(price)}
           className="block w-full mt-2"
         >
-          Zaplatiť členský poplatok
+          Zaplatiť členský príspevok
         </Button>
       ) : null}
     </Card>

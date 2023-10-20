@@ -26,7 +26,7 @@ export default function ManageSubscriptionButton({ session }: Props) {
   return (
     <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
       <p className="pb-4 sm:pb-0">
-        Spravujte svoj členský poplatok cez Stripe.
+        Spravujte svoj členský príspevok cez Stripe.
       </p>
       <Button
         variant="slim"
