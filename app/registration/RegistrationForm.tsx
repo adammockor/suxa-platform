@@ -41,7 +41,11 @@ const SubmitButton = ({ type }: { type: string }) => {
   }
 
   if (type === 'error') {
-    message = 'Nastala chyba pri aktualizacii profilu';
+    message = (
+      <span className="text-red-600">
+        Nastala chyba pri aktualizacii profilu
+      </span>
+    );
   }
 
   return (

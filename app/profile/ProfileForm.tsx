@@ -38,11 +38,15 @@ const SubmitButton = ({ type }: { type: string }) => {
 
   let message;
   if (type === 'success') {
-    message = 'Profil aktualizovany';
+    message = <span className="text-green-600">Profil aktualizovany</span>;
   }
 
   if (type === 'error') {
-    message = 'Nastala chyba pri aktualizacii profilu';
+    message = (
+      <span className="text-red-600">
+        Nastala chyba pri aktualizacii profilu
+      </span>
+    );
   }
 
   return (
