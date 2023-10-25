@@ -68,11 +68,11 @@ function CardEmail({
           <input
             type="text"
             name="email"
-            className="w-full p-3 rounded-md bg-white text-black"
+            className="w-full p-3 rounded-md bg-zinc-400 text-black"
             defaultValue={email ?? ''}
             placeholder="Tvoj email"
             required
-            maxLength={64}
+            readOnly
           />
         </div>
       </div>

@@ -43,20 +43,6 @@ export async function update(_: any, formData: FormData) {
     })
     .eq('id', user?.id);
 
-  const newEmail = formData.get('email') as string;
-
-  if (user?.email !== newEmail) {
-    const { error: userError } = await supabase.auth.updateUser({
-      email: newEmail
-    });
-
-    if (userError) {
-      console.log(userError);
-
-      return { type: 'error' };
-    }
-  }
-
   if (usersError) {
     console.log(usersError);
 
