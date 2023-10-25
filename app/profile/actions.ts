@@ -27,6 +27,12 @@ export async function update(_: any, formData: FormData) {
   const website = formData.get('website') as string;
   const email_visible = !!formData.get('email_visible') as boolean;
 
+  const interests = formData.get('interests') as string;
+  const expectations = formData.get('expectations') as string;
+  const gdpr_consent = formData.get('gdpr_consent') as string | null;
+
+  console.log('gdpr_consent: ', gdpr_consent);
+
   const { error: usersError } = await supabase
     .from('users')
     .update({
@@ -39,7 +45,10 @@ export async function update(_: any, formData: FormData) {
       bio,
       linkedin,
       website,
-      email_visible
+      email_visible,
+      interests,
+      expectations,
+      gdpr_consent: !!gdpr_consent
     })
     .eq('id', user?.id);
 
