@@ -180,14 +180,18 @@ export interface Database {
           billing_address: Json | null
           bio: string | null
           city: string | null
+          email: string | null
           email_visible: boolean | null
+          expectations: string | null
+          gdpr_consent: boolean | null
           id: string
-          job_role: string
+          interests: string | null
+          job_role: string | null
           linkedin: string | null
-          name: string
+          name: string | null
           organization: string | null
           payment_method: Json | null
-          surename: string
+          surename: string | null
           website: string | null
           years_of_experience: number | null
         }
@@ -196,14 +200,18 @@ export interface Database {
           billing_address?: Json | null
           bio?: string | null
           city?: string | null
+          email?: string | null
           email_visible?: boolean | null
+          expectations?: string | null
+          gdpr_consent?: boolean | null
           id: string
-          job_role: string
+          interests?: string | null
+          job_role?: string | null
           linkedin?: string | null
-          name: string
+          name?: string | null
           organization?: string | null
           payment_method?: Json | null
-          surename: string
+          surename?: string | null
           website?: string | null
           years_of_experience?: number | null
         }
@@ -212,14 +220,18 @@ export interface Database {
           billing_address?: Json | null
           bio?: string | null
           city?: string | null
+          email?: string | null
           email_visible?: boolean | null
+          expectations?: string | null
+          gdpr_consent?: boolean | null
           id?: string
-          job_role?: string
+          interests?: string | null
+          job_role?: string | null
           linkedin?: string | null
-          name?: string
+          name?: string | null
           organization?: string | null
           payment_method?: Json | null
-          surename?: string
+          surename?: string | null
           website?: string | null
           years_of_experience?: number | null
         }

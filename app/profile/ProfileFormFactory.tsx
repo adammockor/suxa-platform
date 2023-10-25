@@ -18,41 +18,24 @@ function ProfileFormFactory({
 }) {
   return (
     <form id="profile" action={action} className="">
-      <CardName name={userDetails?.name} surename={userDetails?.surename} />
-      <CardEmail
-        email={user?.email ?? ''}
-        emailVisible={userDetails?.email_visible ?? false}
-      />
+      <CardName name={userDetails.name} surename={userDetails.surename} />
+      <CardEmail email={user.email} emailVisible={userDetails.email_visible} />
       <CardJob
-        organization={userDetails?.organization ?? ''}
-        job_role={userDetails?.job_role ?? ''}
-        years_of_experience={userDetails?.years_of_experience?.toString() ?? ''}
-        city={userDetails?.city ?? ''}
+        organization={userDetails.organization}
+        job_role={userDetails.job_role}
+        years_of_experience={userDetails.years_of_experience}
+        city={userDetails.city}
       />
       <CardBio
-        bio={userDetails?.bio ?? ''}
-        linkedin={userDetails?.linkedin ?? ''}
-        website={userDetails?.website ?? ''}
+        bio={userDetails.bio}
+        linkedin={userDetails.linkedin}
+        website={userDetails.website}
       />
-      <CardFeedback />
-      <Card title="Spracovanie osobných údajov">
-        <div className="mt-4 text-xl flex gap-4">
-          <div className="w-full">
-            <div className="flex items-center mb-4">
-              <input
-                id="email_visible"
-                name="email_visible"
-                type="checkbox"
-                // defaultChecked={emailVisible}
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 round"
-              />
-              <label htmlFor="email_visible" className="ml-2">
-                Súhlasím so spracovaním údajov (povinné)
-              </label>
-            </div>
-          </div>
-        </div>
-      </Card>
+      <CardCommunity
+        expectations={userDetails.expectations}
+        interests={userDetails.interests}
+      />
+      <GDPRConsent gdprConsent={userDetails.gdpr_consent} />
       <div className="w-full max-w-3xl m-auto my-8 flex items-center justify-end gap-4">
         {submitButton}
       </div>
@@ -66,8 +49,8 @@ function CardEmail({
   email,
   emailVisible
 }: {
-  email: string;
-  emailVisible: boolean;
+  email?: string | null;
+  emailVisible?: boolean | null;
 }) {
   return (
     <Card
@@ -100,7 +83,7 @@ function CardEmail({
               id="email_visible"
               name="email_visible"
               type="checkbox"
-              defaultChecked={emailVisible}
+              defaultChecked={emailVisible ?? true}
               className="w-6 h-4 text-blue-600 bg-gray-100 border-gray-300 round"
             />
             <label htmlFor="email_visible" className="ml-2">
@@ -113,7 +96,13 @@ function CardEmail({
   );
 }
 
-function CardName({ name, surename }: { name?: string; surename?: string }) {
+function CardName({
+  name,
+  surename
+}: {
+  name?: string | null;
+  surename?: string | null;
+}) {
   return (
     <Card
       title="Meno a priezvisko"
@@ -148,7 +137,7 @@ function CardName({ name, surename }: { name?: string; surename?: string }) {
             type="text"
             name="surename"
             className="w-full p-3 rounded-md bg-white text-black"
-            defaultValue={surename}
+            defaultValue={surename ?? ''}
             placeholder="Priezvisko"
             maxLength={64}
             required
@@ -164,9 +153,9 @@ function CardBio({
   linkedin,
   website
 }: {
-  bio?: string;
-  linkedin?: string;
-  website?: string;
+  bio?: string | null;
+  linkedin?: string | null;
+  website?: string | null;
 }) {
   return (
     <Card
@@ -202,7 +191,7 @@ function CardBio({
             type="text"
             name="linkedin"
             className="w-full p-3 rounded-md bg-white text-black"
-            defaultValue={linkedin}
+            defaultValue={linkedin ?? ''}
             placeholder="Linkedin profil url"
             maxLength={64}
           />
@@ -220,7 +209,7 @@ function CardBio({
             type="text"
             name="website"
             className="w-full p-3 rounded-md bg-white text-black"
-            defaultValue={website}
+            defaultValue={website ?? ''}
             placeholder="Osobný web url"
             maxLength={64}
           />
@@ -230,10 +219,12 @@ function CardBio({
   );
 }
 
-function CardFeedback({}: {
-  bio?: string;
-  linkedin?: string;
-  website?: string;
+function CardCommunity({
+  interests,
+  expectations
+}: {
+  interests?: string | null;
+  expectations?: string | null;
 }) {
   return (
     <Card
@@ -243,16 +234,15 @@ function CardFeedback({}: {
       <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
         <div className="w-full mt-4">
           <label
-            htmlFor="bio"
+            htmlFor="interests"
             className="block mb-2 text-sm font-medium text-white"
           >
             Aké obsahové témy ťa zaujímajú?
           </label>
           <textarea
-            name="bio"
+            name="interests"
             className="w-full p-3 rounded-md bg-white text-black"
-            // defaultValue={bio ?? ''}
-            // placeholder="O vás"
+            defaultValue={interests ?? ''}
             maxLength={500}
           />
         </div>
@@ -260,18 +250,41 @@ function CardFeedback({}: {
       <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
         <div className="w-full mt-4">
           <label
-            htmlFor="bio"
+            htmlFor="expectations"
             className="block mb-2 text-sm font-medium text-white"
           >
             Aké sú tvoje očakávania od členstva v SUXA?
           </label>
           <textarea
-            name="bio"
+            name="expectations"
             className="w-full p-3 rounded-md bg-white text-black"
-            // defaultValue={bio ?? ''}
-            // placeholder="O vás"
+            defaultValue={expectations ?? ''}
             maxLength={500}
           />
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function GDPRConsent({ gdprConsent }: { gdprConsent?: boolean | null }) {
+  return (
+    <Card title="Spracovanie osobných údajov">
+      <div className="mt-4 text-xl flex gap-4">
+        <div className="w-full">
+          <div className="flex items-center mb-4">
+            <input
+              id="gdpr_consent"
+              name="gdpr_consent"
+              type="checkbox"
+              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 round"
+              required
+              defaultChecked={gdprConsent ?? false}
+            />
+            <label htmlFor="gdpr_consent" className="ml-2">
+              Súhlasím so spracovaním údajov (povinné)
+            </label>
+          </div>
         </div>
       </div>
     </Card>

@@ -31,10 +31,10 @@ function CardJob({
   years_of_experience,
   city
 }: {
-  organization: string;
-  job_role: string;
-  years_of_experience: string;
-  city: string;
+  organization?: string | null;
+  job_role?: string | null;
+  years_of_experience?: number | null;
+  city?: string | null;
 }) {
   const [role, setRole] = useState(job_role);
 
@@ -61,7 +61,7 @@ function CardJob({
             type="text"
             name="organization"
             className="w-full p-3 rounded-md bg-white text-black"
-            defaultValue={organization}
+            defaultValue={organization ?? ''}
             placeholder="Zamestnávateľ/škola"
             maxLength={64}
           />
@@ -77,7 +77,7 @@ function CardJob({
             type="text"
             name="city"
             className="w-full p-3 rounded-md bg-white text-black"
-            defaultValue={city}
+            defaultValue={city ?? ''}
             placeholder="Mesto"
             maxLength={64}
           />
@@ -95,7 +95,7 @@ function CardJob({
             name="job_role"
             className="w-full p-3 rounded-md bg-white text-black"
             placeholder="Your job role"
-            value={getRoleSelectValue(role)}
+            value={getRoleSelectValue(role ?? '')}
             onChange={handleRoleChange}
             required
           >
@@ -108,7 +108,7 @@ function CardJob({
           </select>
         </div>
         {/* SHow input custom job role is different to predefined list  */}
-        {role === 'Iné' || (role !== '' && !roles.includes(role)) ? (
+        {role === 'Iné' || (role !== '' && !roles.includes(role ?? '')) ? (
           <div className="w-1/2 mt-4">
             <label
               htmlFor="job_role_other"
@@ -120,7 +120,7 @@ function CardJob({
               type="text"
               name="job_role_other"
               className="w-full p-3 rounded-md bg-white text-black"
-              defaultValue={role === 'Iné' ? '' : role}
+              defaultValue={role === 'Iné' ? '' : role ?? ''}
               placeholder="Pracovná rola"
               maxLength={64}
               required
@@ -140,7 +140,7 @@ function CardJob({
             type="text"
             name="years_of_experience"
             className="w-full p-3 rounded-md bg-white text-black"
-            defaultValue={years_of_experience}
+            defaultValue={years_of_experience?.toString() ?? ''}
             placeholder="Počet rokov odborných skúsenosťí"
             pattern="[0-9]+"
             maxLength={64}
