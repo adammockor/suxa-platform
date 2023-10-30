@@ -6,6 +6,7 @@ import { Database } from '@/types_db';
 import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 
+// TODO: do not't pass formData to action - do it in the form itself and type the acction
 export async function update(_: any, formData: FormData) {
   const supabase = createServerActionClient<Database>({ cookies });
   const session = await getSession();
@@ -30,8 +31,6 @@ export async function update(_: any, formData: FormData) {
   const interests = formData.get('interests') as string;
   const expectations = formData.get('expectations') as string;
   const gdpr_consent = formData.get('gdpr_consent') as string | null;
-
-  console.log('gdpr_consent: ', gdpr_consent);
 
   const { error: usersError } = await supabase
     .from('users')

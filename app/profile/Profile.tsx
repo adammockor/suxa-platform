@@ -1,30 +1,28 @@
 'use client';
 
-import { Database } from '@/types_db';
-import { User } from '@supabase/supabase-js';
 import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 import { experimental_useFormState as useFormState } from 'react-dom';
-import { update } from '../profile/actions';
-import ProfileForm from '../profile/ProfileForm';
 import Button from '@/components/ui/Button';
-import { redirect } from 'next/navigation';
-import CardName from '../profile/CardName';
-import CardEmail from '../profile/CardEmail';
-import CardJob from '../profile/CardJob';
-import CardBio from '../profile/CardBio';
-import CardCommunity from '../profile/CardCommunity';
-import GDPRConsent from '../profile/GDPRConsent';
+import { update } from './actions';
+import { User } from '@supabase/supabase-js';
+import { Database } from '@/types_db';
+import ProfileForm from './ProfileForm';
+import CardName from './CardName';
+import CardEmail from './CardEmail';
+import CardJob from './CardJob';
+import CardBio from './CardBio';
+import CardCommunity from './CardCommunity';
+
 const initialState = {
   type: null
 };
 
-function RegistrationForm({
+function Profile({
   userDetails,
   user
 }: {
   userDetails: Database['public']['Tables']['users']['Row'];
   user: User;
-  redirectOnSuccess?: string;
 }) {
   const [{ type }, formAction] = useFormState(update, initialState);
 
@@ -50,17 +48,18 @@ function RegistrationForm({
         expectations={userDetails.expectations}
         interests={userDetails.interests}
       />
-      <GDPRConsent gdprConsent={userDetails.gdpr_consent} />
     </ProfileForm>
   );
 }
+
+export default Profile;
 
 const SubmitButton = ({ type }: { type: string }) => {
   const { pending } = useFormStatus();
 
   let message;
   if (type === 'success') {
-    redirect('/support');
+    message = <span className="text-green-600">Profil aktualizovany</span>;
   }
 
   if (type === 'error') {
@@ -75,10 +74,8 @@ const SubmitButton = ({ type }: { type: string }) => {
     <>
       {!pending ? <span className="ml-auto mr-0">{message}</span> : null}
       <Button variant="slim" type="submit" form="profile" className="ml-auto">
-        {pending ? 'Registrujem profil' : 'Registrovať sa'}
+        {pending ? 'Aktualizujem profil' : 'Aktualizovať profil'}
       </Button>
     </>
   );
 };
-
-export default RegistrationForm;
