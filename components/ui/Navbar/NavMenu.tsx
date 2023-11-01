@@ -4,9 +4,14 @@ import cn from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import s from './Navbar.module.css';
+import { User } from '@supabase/supabase-js';
 
-function NavMenu() {
+async function NavMenu({ user }: { user?: User }) {
   const currentRoute = usePathname();
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <nav className="ml-6 space-x-2 block">

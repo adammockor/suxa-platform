@@ -1,17 +1,15 @@
 import Link from 'next/link';
-import { createServerSupabaseClient } from '@/app/supabase-server';
 
 import Logo from '@/components/icons/Logo';
-import SignOutButton from './SignOutButton';
 
 import s from './Navbar.module.css';
 import NavMenu from './NavMenu';
+import UserSessionButton from './UserSessionButton';
+import { getSession } from '@/app/supabase-server';
 
 export default async function Navbar() {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
+  const session = await getSession();
+  const user = session?.user;
 
   return (
     <nav className={s.root}>
@@ -24,16 +22,10 @@ export default async function Navbar() {
             <Link href="/" className={s.logo} aria-label="Logo">
               <Logo />
             </Link>
-            {user ? <NavMenu /> : null}
+            <NavMenu user={user} />
           </div>
           <div className="flex justify-end flex-1 space-x-8">
-            {user ? (
-              <SignOutButton />
-            ) : (
-              <Link href="/signin" className={s.link}>
-                Prihlásiť sa
-              </Link>
-            )}
+            <UserSessionButton user={user} />
           </div>
         </div>
       </div>
