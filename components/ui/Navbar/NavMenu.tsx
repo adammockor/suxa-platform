@@ -16,19 +16,32 @@ async function NavMenu({ user }: { user?: User }) {
   return (
     <nav className="ml-6 space-x-2 block">
       <Link href="/" className={cn(s.link, currentRoute === '/' && s.current)}>
-        Dashboard
+        Zoznam členov
+      </Link>
+      <Link
+        className={cn(s.link)}
+        href="https://suxa.slack.com/"
+        target="_blank"
+      >
+        Slack
+      </Link>
+      <Link
+        href="/services"
+        className={cn(s.link, currentRoute === '/services' && s.current)}
+      >
+        Dalšie služby
       </Link>
       <Link
         href="/profile"
         className={cn(s.link, currentRoute === '/profile' && s.current)}
       >
-        Profil
+        Môj profil
       </Link>
       <Link
         href="/support"
         className={cn(s.link, currentRoute === '/support' && s.current)}
       >
-        Členské
+        Moje členské
       </Link>
     </nav>
   );
