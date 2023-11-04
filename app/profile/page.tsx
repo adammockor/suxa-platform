@@ -29,20 +29,21 @@ export default async function Profile() {
           <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
             Váš profil
           </h1>
-          <p className="max-w-2xl m-auto mb-8 mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-            {profileIncomplete || !subscription
-              ? `🙏 Prosíme, ${[
-                  profileIncomplete && 'vyplňte povinné informácie',
-                  !subscription && 'zaplaťte členský poplatok'
-                ]
-                  .filter(Boolean)
-                  .join(' a ')}`
-              : 'Ďakujeme, že podporujete rozvoj User Experience dizajnu na Slovensku'}
-          </p>
+          <div className="text-center max-w-3xl self-center">
+            <p className="">
+              {profileIncomplete || !subscription
+                ? `🙏 Prosíme, ${[
+                    profileIncomplete && 'vyplňte povinné informácie',
+                    !subscription && 'zaplaťte členský poplatok'
+                  ]
+                    .filter(Boolean)
+                    .join(' a ')}`
+                : 'Ďakujeme, že podporujete rozvoj User Experience dizajnu na Slovensku'}
+            </p>
+          </div>
         </div>
       </div>
       <div className="p-4">
-        <hr className="h-px my-8 bg-zinc-700 border-0 dark:bg-gray-700" />
         <ProfileForm userDetails={userDetails} user={user} />
       </div>
     </section>
