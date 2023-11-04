@@ -46,8 +46,8 @@ function CardJob({
 
   return (
     <Card
-      title="Vaše skúsenosti"
-      description="Aby sme mohli tvoriť lepšie komunity, zbierame niekoľko informácii o tvojich profesných skúsenostiach. Tieto údaje nám poskytujú aj lepší prehľad o našom odvetví."
+      title="Pracovné skúsenosti"
+      description="Vyplň, prosím, aj zopár základných informácií o tvojej kariére. Tieto údaje pomáhaju členom osloviť tých správnych ľudí a SUXA poskytujú prehľad o našom odvetví."
     >
       <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
         <div className="w-1/2 mt-4">
@@ -55,14 +55,14 @@ function CardJob({
             htmlFor="organization"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Zamestnávateľ/škola
+            Zamestnávateľ / škola
           </label>
           <input
             type="text"
             name="organization"
             className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={organization ?? ''}
-            placeholder="Zamestnávateľ/škola"
+            placeholder="Zamestnávateľ / škola"
             maxLength={64}
           />
         </div>
@@ -134,14 +134,14 @@ function CardJob({
             htmlFor="years_of_experience"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Počet rokov odborných skúsenosťí
+            Počet rokov odbornej praxe
           </label>
           <input
             type="text"
             name="years_of_experience"
             className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={years_of_experience?.toString() ?? ''}
-            placeholder="Počet rokov odborných skúsenosťí"
+            placeholder="Číslo"
             pattern="[0-9]+"
             maxLength={64}
           />

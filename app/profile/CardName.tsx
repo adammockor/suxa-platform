@@ -11,7 +11,7 @@ export default function CardName({
   return (
     <Card
       title="Meno a priezvisko"
-      description="Stávate sa súčasťou komunity, vaše meno bude dostupné všetkým ostatným členom."
+      description="Aby ťa každý spoznal, tvoje meno a priezvisko budú dostupné všetkým členom komunity."
     >
       <div className="mt-4 mb-4 text-xl font-semibold flex gap-4">
         <div className="w-full mt-4">

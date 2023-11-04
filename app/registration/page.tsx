@@ -22,9 +22,9 @@ export default async function Registration() {
             Registrácia
           </h1>
           <p>
-            Radi by sme ťa spoznali! Jedným z hlavných cieľov SUXA je networking
-            členov. Preto zbierame základné údaje, ktoré budú dostupné v zozname
-            členov.
+            Tu prosím, vyplň svoje základné údaje. Niektoré z nich budú dostupné
+            v zozname členov, ktorý je pre každého v SUXA skvelým zdrojom
+            príležitostí na networking.
           </p>
         </div>
       </div>

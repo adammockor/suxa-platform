@@ -11,7 +11,7 @@ export default function CardEmail({
   return (
     <Card
       title="Kontaktné údaje"
-      description="E-mail bude vašim vstupom do komunity a budeme naň posielať SUXA newsletter. Môžete sa rozhodnúť nezobrazovať ho v zozname členov."
+      description="Tvoj e-mail už máme. Budeme ti naň posielať SUXA newsletter a môžeš si vybrať, či ho uverejniíme alebo nie. Odporúčame ho zdieľať - SUXA je uzavretá komunita a prístup k nemu budú mať len členovia."
     >
       <div className="mt-4 mb-4 text-xl font-semibold flex gap-4">
         <div className="w-1/2 mt-4">
@@ -19,7 +19,7 @@ export default function CardEmail({
             htmlFor="email"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Email (povinné)
+            E-mail (povinné)
           </label>
           <input
             type="text"
@@ -43,7 +43,7 @@ export default function CardEmail({
               className="w-6 h-4 text-blue-600 bg-gray-100 border-gray-300 round"
             />
             <label htmlFor="email_visible" className="ml-2">
-              Zobrazovať e-mail v zozname členov
+              Uverejniť e-mail v zozname členov
             </label>
           </div>
         </div>

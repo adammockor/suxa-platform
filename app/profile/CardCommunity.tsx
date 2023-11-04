@@ -10,8 +10,8 @@ function CardCommunity({
 }) {
   return (
     <Card
-      title="Tvoje záujmy"
-      description="Radi by sme sa dozvedeli ako lepšie tvoriť SUXA pre teba. Povedz nám čo ťa zaujíma."
+      title="Záujmy"
+      description="Aktivity SUXA organizujeme podľa toho, čo zaujíma jej členov. Napíš nám, aké témy by si rád videl/a a my sa pokúsime vyjsť ti v ústrety."
     >
       <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
         <div className="w-full mt-4">

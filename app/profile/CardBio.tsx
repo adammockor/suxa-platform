@@ -12,8 +12,8 @@ function CardBio({
 }) {
   return (
     <Card
-      title="Váš profil"
-      description="Doplňte detaily o Vás, ktoré pomôžu ostatným v komunite vás spoznať."
+      title="Profil"
+      description="Pomôž ostatným lepšie ťa spoznať. Vyplň pár detailov o sebe a prilož linky na LinkedIn profil či web."
     >
       <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
         <div className="w-full mt-4">
@@ -21,13 +21,13 @@ function CardBio({
             htmlFor="bio"
             className="block mb-2 text-sm font-medium text-white"
           >
-            O vás
+            O tebe
           </label>
           <textarea
             name="bio"
             className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={bio ?? ''}
-            placeholder="O vás"
+            placeholder="O tebe"
             maxLength={500}
           />
         </div>
