@@ -52,7 +52,7 @@ function CardSubscription({
       title={`${subscription ? '✅ ' : ''}Ročný členský príspevok`}
       description={
         subscription ? (
-          `Ďakujeme 💙 Ročný členský príspevok máte uhradený do: ${endPeriod}`
+          `Ďakujeme 💙 Ročný členský príspevok v hodnote ${subscriptionPrice} máte uhradený do: ${endPeriod}`
         ) : (
           <>
             Členský príspevok ešte nemáš uhradený.
@@ -67,10 +67,16 @@ function CardSubscription({
         subscription ? <ManageSubscriptionButton session={session} /> : null
       }
     >
-      <div className="mt-4">
-        {subscription ? <div>{subscriptionPrice}/rok</div> : null}
-        <BuySubscription product={productClenske} subscription={subscription} />
-      </div>
+      {[null, undefined, 'unpaid', 'past_due'].includes(
+        subscription?.status ?? null
+      ) ? (
+        <div className="mt-4">
+          <BuySubscription
+            product={productClenske}
+            subscription={subscription}
+          />
+        </div>
+      ) : null}
     </Card>
   );
 }
@@ -155,20 +161,15 @@ function BuySubscription({
           </div>
         ))}
       </RadioGroup>
-
-      {[null, undefined, 'unpaid', 'past_due'].includes(
-        subscription?.status ?? null
-      ) ? (
-        <Button
-          variant="slim"
-          type="submit"
-          disabled={false}
-          loading={!!priceIdLoading}
-          className="block w-full mt-2"
-        >
-          Zaplatiť členský príspevok
-        </Button>
-      ) : null}
+      <Button
+        variant="slim"
+        type="submit"
+        disabled={false}
+        loading={!!priceIdLoading}
+        className="block w-full mt-2"
+      >
+        Zaplatiť členský príspevok
+      </Button>
     </form>
   );
 }
