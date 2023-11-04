@@ -39,7 +39,7 @@ export default async function Dashboard() {
             'max-w-max',
             'self-center'
           )}
-          href={'/support'}
+          href={'/member'}
         >
           Ísť do Moje členské
         </Link>

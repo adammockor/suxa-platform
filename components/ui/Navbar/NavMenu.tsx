@@ -38,8 +38,8 @@ async function NavMenu({ user }: { user?: User }) {
         Môj profil
       </Link>
       <Link
-        href="/support"
-        className={cn(s.link, currentRoute === '/support' && s.current)}
+        href="/member"
+        className={cn(s.link, currentRoute === '/member' && s.current)}
       >
         Moje členské
       </Link>

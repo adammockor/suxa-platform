@@ -60,7 +60,7 @@ const SubmitButton = ({ type }: { type: string }) => {
 
   let message;
   if (type === 'success') {
-    redirect('/support');
+    redirect('/member');
   }
 
   if (type === 'error') {

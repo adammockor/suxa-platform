@@ -4,7 +4,7 @@ import {
   getActiveProductsWithPrices,
   getSession
 } from '@/app/supabase-server';
-import CardSubscription from '../support/CardSubscription';
+import CardSubscription from './CardSubscription';
 import { redirect } from 'next/navigation';
 
 export default async function Profile() {
