@@ -4,11 +4,11 @@ import {
   getUserDetails
 } from './../supabase-server';
 import { redirect } from 'next/navigation';
-import Card from './../profile/Card';
 import { getMembers } from '@/utils/supabase-admin';
 import Link from 'next/link';
 import button from '../../components/ui/Button/Button.module.css';
 import cn from 'classnames';
+import MemberCard, { Member } from './MemberCard';
 
 export default async function Dashboard() {
   const [session, subscription, members, userDetails] = await Promise.all([
@@ -97,66 +97,12 @@ function Members({ members }: { members?: Member[] }) {
     );
   }
 
-  return members.map((member) => <MemberCard member={member} />);
-}
-
-type Member = {
-  name?: string | null;
-  surename?: string | null;
-  job_role?: string | null;
-  email?: string | null;
-  organization?: string | null;
-  years_of_experience?: number | null;
-  bio?: string | null;
-  linkedin?: string | null;
-  website?: string | null;
-  city?: string | null;
-};
-
-function MemberCard({ member }: { member: Member }) {
-  const {
-    bio,
-    linkedin,
-    website,
-    email,
-    years_of_experience,
-    organization,
-    city
-  } = member;
   return (
-    <Card title={`${member.name} ${member.surename}`}>
-      {email ? (
-        <>
-          Email: <Link href={`mailto:${email}`}>{email}</Link>
-          <br />
-        </>
-      ) : null}
-      Pracovná pozícia: {member.job_role}
-      {years_of_experience ? ` (${years_of_experience})` : null}
-      {organization ? ` @ ${organization}` : null}
-      {city ? `, ${city}` : null}
-      {bio || linkedin || website ? (
-        <details>
-          <summary>Viac</summary>
-          {bio ? (
-            <>
-              Bio: {bio}
-              <br />
-            </>
-          ) : null}
-          {linkedin ? (
-            <>
-              LinkedIn: <Link href={linkedin}>{linkedin}</Link>
-              <br />
-            </>
-          ) : null}
-          {website ? (
-            <>
-              Stránka: <Link href={website}>{website}</Link>
-            </>
-          ) : null}
-        </details>
-      ) : null}
-    </Card>
+    <div className="grid grid-cols-3 gap-x-8">
+      {members.map((member) => (
+        <MemberCard member={member} />
+      ))}
+    </div>
   );
 }
+
