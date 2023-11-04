@@ -6,7 +6,6 @@ import {
   manageSubscriptionStatusChange,
   getMembers
 } from '@/utils/supabase-admin';
-import { updateMembers } from '@/utils/slite';
 
 const relevantEvents = new Set([
   'product.created',
@@ -57,15 +56,6 @@ export async function POST(req: Request) {
             subscription.customer as string,
             event.type === 'customer.subscription.created'
           );
-
-          // Update Slite members
-          const members = await getMembers();
-          if (!members?.length) {
-            console.log('No members');
-            break;
-          }
-
-          await updateMembers(members);
 
           break;
         case 'checkout.session.completed':
