@@ -1,14 +1,22 @@
-import { getSession } from '@/app/supabase-server';
+import { getSession, getSubscription } from '@/app/supabase-server';
 import { redirect } from 'next/navigation';
 
 export default async function Registration() {
-  const [session] = await Promise.all([getSession()]);
+  const [session, subscription] = await Promise.all([
+    getSession(),
+    getSubscription()
+  ]);
 
   const user = session?.user;
 
   if (!user) {
     redirect('/signin');
   }
+
+  const endPeriodDate = new Date(subscription?.current_period_end ?? '');
+  const endPeriod = endPeriodDate
+    .toLocaleDateString('sk-SK')
+    .replaceAll(' ', '');
 
   return (
     <section className="mb-3">
@@ -17,13 +25,15 @@ export default async function Registration() {
           <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl mb-12">
             Vitaj v SUXA!
           </h1>
-          <p className="mb-4">
-            Ďakujeme 💙 Ročný členský príspevok máte uhradený do … a ste
-            plnohodnotným členom SUXA
-          </p>
-          <h2 className="text-xl font-extrabold">Čo ďalej?</h2>
-          <p className="mb-4">
-            <ul className="list-disc">
+          <div className="text-center max-w-3xl self-center mb-8">
+            <p className="mb-4 text-center">
+              Ďakujeme 💙 <br /> Ročný členský príspevok máš uhradený do{' '}
+              {endPeriod} a si plnohodnotným členom SUXA.
+            </p>
+          </div>
+          <div className="max-w-3xl self-center">
+            <h2 className="text-xl font-extrabold">Čo ďalej?</h2>
+            <ul className="list-disc ml-4 mb-8">
               <li>
                 💬{' '}
                 <a
@@ -54,12 +64,10 @@ export default async function Registration() {
                 .
               </li>
             </ul>
-          </p>
-          <h2 className="text-xl font-extrabold">
-            Čo sme spravili automaticky?
-          </h2>
-          <p className="mb-4">
-            <ul className="list-disc">
+            <h2 className="text-xl font-extrabold">
+              Čo sme spravili automaticky?
+            </h2>
+            <ul className="list-disc ml-4 mb-8">
               <li>Poslali sme ti tieto informácie priamo do e-mailu.</li>
               <li>Pridali sme ťa do zoznamu členov.</li>
               <li>
@@ -67,7 +75,7 @@ export default async function Registration() {
                 pri najbližšom vydaní.
               </li>
             </ul>
-          </p>
+          </div>
         </div>
       </div>
     </section>
