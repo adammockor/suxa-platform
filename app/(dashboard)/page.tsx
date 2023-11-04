@@ -25,27 +25,27 @@ export default async function Dashboard() {
     redirect('/profile');
   }
 
-  // if (!subscription) {
-  //   return (
-  //     <>
-  //       <p className="max-w-2xl m-auto mb-8 mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-  //         Členský príspevok ešte nemáš uhradený.
-  //       </p>
-  //       <Link
-  //         className={cn(
-  //           button.root,
-  //           button.cta,
-  //           button.slim,
-  //           'max-w-max',
-  //           'self-center'
-  //         )}
-  //         href={'/support'}
-  //       >
-  //         Ísť do Moje členské
-  //       </Link>
-  //     </>
-  //   );
-  // }
+  if (!subscription) {
+    return (
+      <>
+        <p className="max-w-2xl m-auto mb-8 mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
+          Členský príspevok ešte nemáš uhradený.
+        </p>
+        <Link
+          className={cn(
+            button.root,
+            button.cta,
+            button.slim,
+            'max-w-max',
+            'self-center'
+          )}
+          href={'/support'}
+        >
+          Ísť do Moje členské
+        </Link>
+      </>
+    );
+  }
 
   if (profileIncomplete) {
     return (
