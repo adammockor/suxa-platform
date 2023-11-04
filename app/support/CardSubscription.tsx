@@ -6,7 +6,7 @@ import ManageSubscriptionButton from './ManageSubscriptionButton';
 import { Session } from '@supabase/supabase-js';
 import { getStripe } from '@/utils/stripe-client';
 import { postData } from '@/utils/helpers';
-import { useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import Button from '@/components/ui/Button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/ui/radio-group';
 import { Label } from '@/components/ui/ui/label';
@@ -51,9 +51,17 @@ function CardSubscription({
     <Card
       title={`${subscription ? '✅ ' : ''}Ročný členský príspevok`}
       description={
-        subscription
-          ? `Ďakujeme 💙 Ročný členský príspevok máte uhradený do: ${endPeriod}`
-          : 'Momentálne nemáte uhradený členský príspevok. (zalomit!) Zvážte, aký veľký príspevok je vo vašich silách. Minimálny je 5€.'
+        subscription ? (
+          `Ďakujeme 💙 Ročný členský príspevok máte uhradený do: ${endPeriod}`
+        ) : (
+          <>
+            Členský príspevok ešte nemáš uhradený.
+            <br />
+            Prispieť môžeš koľko je v tvojich silách.
+            <br />
+            Minimálna výška príspevku je 5€
+          </>
+        )
       }
       footer={
         subscription ? <ManageSubscriptionButton session={session} /> : null
@@ -69,6 +77,10 @@ function CardSubscription({
 
 export default CardSubscription;
 
+interface BuySubscriptionForm extends HTMLFormElement {
+  price: HTMLInputElement;
+}
+
 function BuySubscription({
   product,
   subscription
@@ -78,8 +90,8 @@ function BuySubscription({
 }) {
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
 
-  const handleCheckout = async (
-    event: React.SyntheticEvent<HTMLFormElement>
+  const handleCheckout: FormEventHandler<BuySubscriptionForm> = async (
+    event
   ) => {
     event.preventDefault();
 
@@ -88,7 +100,7 @@ function BuySubscription({
     }
 
     const price = product.prices.find(
-      (price) => price.id === event.currentTarget.elements['prices'].value
+      (price) => price.id === event.currentTarget.price.value
     );
 
     if (!price) {
@@ -123,7 +135,7 @@ function BuySubscription({
   return (
     <form onSubmit={handleCheckout}>
       <RadioGroup
-        name="prices"
+        name="price"
         defaultValue={product.prices[0].id}
         className="grid grid-cols-3 gap-4"
       >
