@@ -1,9 +1,13 @@
-import { getSession, getSubscription, getUserDetails } from './supabase-server';
+import {
+  getSession,
+  getSubscription,
+  getUserDetails
+} from './../supabase-server';
 import { redirect } from 'next/navigation';
-import Card from './profile/Card';
+import Card from './../profile/Card';
 import { getMembers } from '@/utils/supabase-admin';
 import Link from 'next/link';
-import button from '../components/ui/Button/Button.module.css';
+import button from '../../components/ui/Button/Button.module.css';
 import cn from 'classnames';
 
 export default async function Dashboard() {
@@ -21,66 +25,86 @@ export default async function Dashboard() {
     redirect('/profile');
   }
 
-  if (profileIncomplete || !subscription) {
+  // if (!subscription) {
+  //   return (
+  //     <>
+  //       <p className="max-w-2xl m-auto mb-8 mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
+  //         Členský príspevok ešte nemáš uhradený.
+  //       </p>
+  //       <Link
+  //         className={cn(
+  //           button.root,
+  //           button.cta,
+  //           button.slim,
+  //           'max-w-max',
+  //           'self-center'
+  //         )}
+  //         href={'/support'}
+  //       >
+  //         Ísť do Moje členské
+  //       </Link>
+  //     </>
+  //   );
+  // }
+
+  if (profileIncomplete) {
     return (
-      <section className="mb-3">
-        <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-24 lg:px-8">
-          <div className="sm:align-center sm:flex sm:flex-col">
-            <p className="max-w-2xl m-auto mb-8 mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-              🙏 Prosíme,{' '}
-              {[
-                profileIncomplete && 'vyplňte povinné informácie v profile',
-                !subscription && 'zaplaťte členský poplatok'
-              ]
-                .filter(Boolean)
-                .join(' a ')}
-            </p>
-            <Link
-              className={cn(
-                button.root,
-                button.cta,
-                button.slim,
-                'max-w-max',
-                'self-center'
-              )}
-              href={'/profile'}
-            >
-              Ísť do profilu
-            </Link>
-          </div>
-        </div>
-      </section>
+      <>
+        <p className="max-w-2xl m-auto mb-8 mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
+          Pomôž ostatným lepšie ťa spoznať. Vyplň pár detailov o sebe.
+        </p>
+        <Link
+          className={cn(
+            button.root,
+            button.cta,
+            button.slim,
+            'max-w-max',
+            'self-center'
+          )}
+          href={'/profile'}
+        >
+          Ísť do Profilu
+        </Link>
+      </>
     );
   }
+
   return (
-    <section className="mb-3">
-      <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-24 lg:px-8">
-        <div className="sm:align-center sm:flex sm:flex-col">
-          <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
-            Zoznam členov
-          </h1>
-        </div>
-        <div className="p-4">
-          <Members members={members} />
-        </div>
+    <>
+      <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
+        Zoznam členov
+      </h1>
+
+      <div className="text-center max-w-3xl self-center">
+        <p className="mb-4">
+          V tomto zozname nájdeš všetkých členov SUXA. Kliknutím o nich zistíš
+          viac
+        </p>
       </div>
-    </section>
+      <div className="p-4">
+        <Members members={members} />
+      </div>
+    </>
   );
 }
 
 function Members({ members }: { members?: Member[] }) {
   if (!members?.length) {
-    return 'Nemáme členov';
+    return (
+      <div className="text-center max-w-3xl self-center">
+        <p className="mb-4">Staň sa prvým členom</p>
+      </div>
+    );
   }
 
   return members.map((member) => <MemberCard member={member} />);
 }
 
 type Member = {
-  name?: string;
-  surename?: string;
-  job_role?: string;
-  email?: string;
+  name?: string | null;
+  surename?: string | null;
+  job_role?: string | null;
+  email?: string | null;
   organization?: string | null;
   years_of_experience?: number | null;
   bio?: string | null;
