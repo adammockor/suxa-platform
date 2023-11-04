@@ -30,7 +30,7 @@ export default async function Profile() {
               nových komunitných projektov. Toto je rozcestník našich projektov:
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-x-8">
             <CardSlack />
             <CardSlite />
             <CardMembers />
