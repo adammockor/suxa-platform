@@ -1,18 +1,16 @@
 import {
   getUserDetails,
   getSubscription,
-  getActiveProductsWithPrices,
   getSession
 } from '@/app/supabase-server';
 import { redirect } from 'next/navigation';
 import ProfileForm from './Profile';
 
 export default async function Profile() {
-  const [session, userDetails, subscription, products] = await Promise.all([
+  const [session, userDetails, subscription] = await Promise.all([
     getSession(),
     getUserDetails(),
-    getSubscription(),
-    getActiveProductsWithPrices()
+    getSubscription()
   ]);
 
   const user = session?.user;

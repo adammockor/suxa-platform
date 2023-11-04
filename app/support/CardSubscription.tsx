@@ -8,6 +8,8 @@ import { getStripe } from '@/utils/stripe-client';
 import { postData } from '@/utils/helpers';
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/ui/radio-group';
+import { Label } from '@/components/ui/ui/label';
 
 type Subscription = Database['public']['Tables']['subscriptions']['Row'];
 type Product = Database['public']['Tables']['products']['Row'];
@@ -31,13 +33,70 @@ function CardSubscription({
   session: Session | null;
   products: ProductWithPrices[];
 }) {
+  const productClenske = products.find((product) => product.name === 'Členské');
+
+  const subscriptionPrice =
+    subscription?.prices?.unit_amount &&
+    formatStripePrice(
+      subscription.prices.unit_amount,
+      subscription.prices.currency!
+    );
+
+  const endPeriodDate = new Date(subscription?.current_period_end ?? '');
+  const endPeriod = endPeriodDate
+    .toLocaleDateString('sk-SK')
+    .replaceAll(' ', '');
+
+  return (
+    <Card
+      title={`${subscription ? '✅ ' : ''}Ročný členský príspevok`}
+      description={
+        subscription
+          ? `Ďakujeme 💙 Ročný členský príspevok máte uhradený do: ${endPeriod}`
+          : 'Momentálne nemáte uhradený členský príspevok. (zalomit!) Zvážte, aký veľký príspevok je vo vašich silách. Minimálny je 5€.'
+      }
+      footer={
+        subscription ? <ManageSubscriptionButton session={session} /> : null
+      }
+    >
+      <div className="mt-4">
+        {subscription ? <div>{subscriptionPrice}/rok</div> : null}
+        <BuySubscription product={productClenske} subscription={subscription} />
+      </div>
+    </Card>
+  );
+}
+
+export default CardSubscription;
+
+function BuySubscription({
+  product,
+  subscription
+}: {
+  product?: ProductWithPrices | null;
+  subscription?: SubscriptionWithProduct | null;
+}) {
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
 
-  const handleCheckout = async (price: Price) => {
-    setPriceIdLoading(price.id);
-    if (subscription) {
-      return;
+  const handleCheckout = async (
+    event: React.SyntheticEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+
+    if (!product?.prices || subscription) {
+      return alert('Zaplatenie členského príspevku nie je dostupné');
     }
+
+    const price = product.prices.find(
+      (price) => price.id === event.currentTarget.elements['prices'].value
+    );
+
+    if (!price) {
+      return alert('Zvolená cena nie je podporovaná');
+    }
+
+    setPriceIdLoading(price.id);
+
     try {
       const { sessionId } = await postData({
         url: '/api/create-checkout-session',
@@ -53,57 +112,59 @@ function CardSubscription({
     }
   };
 
-  const subscriptionPrice =
-    subscription &&
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: subscription?.prices?.currency!,
-      minimumFractionDigits: 0
-    }).format((subscription?.prices?.unit_amount || 0) / 100);
-
-  const price = products[0].prices[0];
-  const productPrice =
-    price &&
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: price.currency!,
-      minimumFractionDigits: 0
-    }).format((price.unit_amount || 0) / 100);
-
-  const endPeriodDate = new Date(subscription?.current_period_end ?? '');
-  const endPeriod = endPeriodDate
-    .toLocaleDateString('sk-SK')
-    .replaceAll(' ', '');
+  if (!product?.prices) {
+    return (
+      <span className="text-red-600">
+        Zaplatenie členského príspevku nie je dostupné
+      </span>
+    );
+  }
 
   return (
-    <Card
-      title={`${subscription ? '✅ ' : ''}Ročný členský príspevok`}
-      description={
-        subscription
-          ? `Ďakujeme 💙 Ročný členský príspevok máte uhradený do: ${endPeriod}`
-          : 'Momentálne nemáte uhradený členský príspevok. (zalomit!) Zvážte, aký veľký príspevok je vo vašich silách. Minimálny je 5€.'
-      }
-      // footer={<ManageSubscriptionButton session={session} />}
-    >
-      <div className="mt-4 mb-2 text-xl font-semibold">
-        {subscription ? `${subscriptionPrice}/rok` : `${productPrice}/rok`}
-      </div>
+    <form onSubmit={handleCheckout}>
+      <RadioGroup
+        name="prices"
+        defaultValue={product.prices[0].id}
+        className="grid grid-cols-3 gap-4"
+      >
+        {product?.prices.map((price, index) => (
+          <div key={price.id}>
+            <RadioGroupItem
+              value={price.id}
+              id={price.id}
+              className="peer sr-only"
+            />
+            <Label
+              htmlFor={price.id}
+              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:bg-zinc-600"
+            >
+              {formatStripePrice(price.unit_amount!, price.currency!)}
+            </Label>
+          </div>
+        ))}
+      </RadioGroup>
+
       {[null, undefined, 'unpaid', 'past_due'].includes(
         subscription?.status ?? null
       ) ? (
         <Button
           variant="slim"
-          type="button"
+          type="submit"
           disabled={false}
-          loading={priceIdLoading === price.id}
-          onClick={() => handleCheckout(price)}
+          loading={!!priceIdLoading}
           className="block w-full mt-2"
         >
           Zaplatiť členský príspevok
         </Button>
       ) : null}
-    </Card>
+    </form>
   );
 }
 
-export default CardSubscription;
+function formatStripePrice(price: number, currency: string) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 0
+  }).format((price || 0) / 100);
+}
