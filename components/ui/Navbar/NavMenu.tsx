@@ -15,6 +15,18 @@ async function NavMenu({ user }: { user?: User }) {
 
   return (
     <nav className="ml-6 space-x-2 block">
+      <NavMenuList />
+    </nav>
+  );
+}
+
+export default NavMenu;
+
+export function NavMenuList() {
+  const currentRoute = usePathname();
+  return (
+    <>
+      {' '}
       <Link href="/" className={cn(s.link, currentRoute === '/' && s.current)}>
         Zoznam členov
       </Link>
@@ -43,8 +55,6 @@ async function NavMenu({ user }: { user?: User }) {
       >
         Moje členské
       </Link>
-    </nav>
+    </>
   );
 }
-
-export default NavMenu;
