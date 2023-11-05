@@ -17,7 +17,7 @@ export default function MobileMenu() {
       onOpenChange={setIsOpen}
       className="flex flex-col"
     >
-      <CollapsibleTrigger className="flex self-end h-8 w-8 justify-center">
+      <CollapsibleTrigger className="flex self-end h-8 w-8 justify-center items-center">
         {isOpen ? <IconX /> : <IconHamburger />}
       </CollapsibleTrigger>
       <CollapsibleContent>
