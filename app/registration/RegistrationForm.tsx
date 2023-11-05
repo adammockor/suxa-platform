@@ -65,16 +65,19 @@ const SubmitButton = ({ type }: { type: string }) => {
 
   if (type === 'error') {
     message = (
-      <span className="text-red-600">
-        Nastala chyba pri aktualizacii profilu
-      </span>
+      <div className="text-red-600">Nastala chyba pri aktualizacii profilu</div>
     );
   }
 
   return (
     <>
-      {!pending ? <span className="ml-auto mr-0">{message}</span> : null}
-      <Button variant="slim" type="submit" form="profile" className="ml-auto">
+      {!pending && message ? message : null}
+      <Button
+        variant="slim"
+        type="submit"
+        form="profile"
+        className="ml-auto w-full lg:w-auto"
+      >
         {pending ? 'Registrujem profil' : 'Registrovať sa'}
       </Button>
     </>

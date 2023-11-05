@@ -49,8 +49,8 @@ function CardJob({
       title="Pracovné skúsenosti"
       description="Vyplň, prosím, aj zopár základných informácií o tvojej kariére. Tieto údaje pomáhaju členom osloviť tých správnych ľudí a SUXA poskytujú prehľad o našom odvetví."
     >
-      <div className="mt-4 mb-2 text-xl font-semibold flex gap-4">
-        <div className="w-1/2 mt-4">
+      <div className="mt-4 mb-2 text-xl font-semibold lg:flex gap-4">
+        <div className="w-full mt-4">
           <label
             htmlFor="organization"
             className="block mb-2 text-sm font-medium text-white"
@@ -66,7 +66,7 @@ function CardJob({
             maxLength={64}
           />
         </div>
-        <div className="w-1/2 mt-4">
+        <div className="w-full mt-4">
           <label
             htmlFor="city"
             className="block mb-2 text-sm font-medium text-white"
@@ -83,8 +83,8 @@ function CardJob({
           />
         </div>
       </div>
-      <div className="mb-2 text-xl font-semibold flex gap-4">
-        <div className="w-1/2 mt-4">
+      <div className="mb-2 text-xl font-semibold lg:flex gap-4">
+        <div className="w-full mt-4">
           <label
             htmlFor="job_role"
             className="block mb-2 text-sm font-medium text-white"
@@ -109,7 +109,7 @@ function CardJob({
         </div>
         {/* SHow input custom job role is different to predefined list  */}
         {role === 'Iné' || (role !== '' && !roles.includes(role ?? '')) ? (
-          <div className="w-1/2 mt-4">
+          <div className="w-full mt-4">
             <label
               htmlFor="job_role_other"
               className="block mb-2 text-sm font-medium text-white"
@@ -128,8 +128,8 @@ function CardJob({
           </div>
         ) : null}
       </div>
-      <div className="mb-2 text-xl font-semibold flex gap-4">
-        <div className="w-1/2 mt-4">
+      <div className="mb-2 text-xl font-semibold lg:flex gap-4">
+        <div className="w-full lg:w-1/2 mt-4">
           <label
             htmlFor="years_of_experience"
             className="block mb-2 text-sm font-medium text-white"

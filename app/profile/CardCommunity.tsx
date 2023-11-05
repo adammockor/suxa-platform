@@ -26,6 +26,7 @@ function CardCommunity({
             className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={interests ?? ''}
             maxLength={500}
+            rows={5}
           />
         </div>
       </div>
@@ -42,6 +43,7 @@ function CardCommunity({
             className="w-full p-3 rounded-md bg-white text-black"
             defaultValue={expectations ?? ''}
             maxLength={500}
+            rows={5}
           />
         </div>
       </div>

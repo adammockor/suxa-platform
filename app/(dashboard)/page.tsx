@@ -71,7 +71,7 @@ export default async function Dashboard() {
 
   return (
     <>
-      <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
+      <h1 className="text-4xl lg:text-6xl font-extrabold text-white text-center">
         Zoznam členov
       </h1>
 
@@ -98,7 +98,7 @@ function Members({ members }: { members?: Member[] }) {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-x-8">
+    <div className="grid lg:grid-cols-3 gap-x-8">
       {members.map((member) => (
         <MemberCard key={member.email} member={member} />
       ))}

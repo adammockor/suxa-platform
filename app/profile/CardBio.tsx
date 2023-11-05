@@ -29,6 +29,7 @@ function CardBio({
             defaultValue={bio ?? ''}
             placeholder="O tebe"
             maxLength={500}
+            rows={5}
           />
         </div>
       </div>

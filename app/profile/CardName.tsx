@@ -13,7 +13,7 @@ export default function CardName({
       title="Meno a priezvisko"
       description="Aby ťa každý spoznal, tvoje meno a priezvisko budú dostupné všetkým členom komunity."
     >
-      <div className="mt-4 mb-4 text-xl font-semibold flex gap-4">
+      <div className="mt-4 mb-4 text-xl font-semibold lg:flex gap-4">
         <div className="w-full mt-4">
           <label
             htmlFor="name"

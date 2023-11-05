@@ -12,7 +12,7 @@ function ProfileForm({
   return (
     <form id="profile" action={action} className="">
       {children}
-      <div className="w-full max-w-3xl m-auto my-8 flex items-center justify-end gap-4">
+      <div className="w-full lg:w-auto max-w-3xl m-auto flex flex-col lg:flex-row items-center lg:justify-end gap-4">
         {submitButton}
       </div>
     </form>

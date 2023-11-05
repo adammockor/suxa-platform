@@ -21,7 +21,7 @@ export default async function Profile() {
     <section className="mb-3">
       <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-24 lg:px-8">
         <div className="sm:align-center sm:flex sm:flex-col">
-          <h1 className="text-3xl font-extrabold text-white sm:text-center sm:text-5xl">
+          <h1 className="text-4xl lg:text-6xl font-extrabold text-white">
             Ďalšie SUXA služby
           </h1>
           <div className="text-center max-w-3xl self-center mb-8">
@@ -30,7 +30,7 @@ export default async function Profile() {
               nových komunitných projektov. Toto je rozcestník našich projektov:
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-x-8">
+          <div className="grid lg:grid-cols-2 gap-x-8">
             <CardSlack />
             <CardSlite />
             <CardMembers />
