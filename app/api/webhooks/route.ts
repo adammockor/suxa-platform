@@ -4,8 +4,10 @@ import {
   upsertProductRecord,
   upsertPriceRecord,
   manageSubscriptionStatusChange,
-  getMembers
+  getMember
 } from '@/utils/supabase-admin';
+import { sendEmailWelcome } from '@/utils/resend';
+import { toDateTime } from '@/utils/helpers';
 
 const relevantEvents = new Set([
   'product.created',
@@ -48,14 +50,33 @@ export async function POST(req: Request) {
         case 'customer.subscription.created':
         case 'customer.subscription.updated':
         case 'customer.subscription.deleted':
-          console.log('event.data.object: ', event.data.object);
-
           const subscription = event.data.object as Stripe.Subscription;
           await manageSubscriptionStatusChange(
             subscription.id,
             subscription.customer as string,
             event.type === 'customer.subscription.created'
           );
+
+          if (event.type === 'customer.subscription.created') {
+            const { current_period_end, id } = event.data
+              .object as Stripe.Subscription;
+
+            const member = await getMember(id);
+
+            if (member && member?.email) {
+              const endPeriodDate = toDateTime(current_period_end);
+
+              const endPeriod = endPeriodDate
+                .toLocaleDateString('sk-SK')
+                .replaceAll(' ', '');
+
+              await sendEmailWelcome({
+                endPeriod,
+                name: member?.name,
+                email: member.email
+              });
+            }
+          }
 
           break;
         case 'checkout.session.completed':

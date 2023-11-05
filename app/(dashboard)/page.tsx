@@ -100,7 +100,7 @@ function Members({ members }: { members?: Member[] }) {
   return (
     <div className="grid grid-cols-3 gap-x-8">
       {members.map((member) => (
-        <MemberCard member={member} />
+        <MemberCard key={member.email} member={member} />
       ))}
     </div>
   );

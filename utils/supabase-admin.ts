@@ -178,6 +178,27 @@ const manageSubscriptionStatusChange = async (
     );
 };
 
+export async function getMember(uuid: string) {
+  const { data, error } = await supabaseAdmin
+    .from('subscriptions')
+    .select(
+      'users (id, name, surename, job_role, email_visible, organization, years_of_experience, bio, linkedin, website, city, interests)'
+    )
+    .eq('id', uuid)
+    .single();
+
+  if (error) throw error;
+  if (!data.users) {
+    return;
+  }
+
+  const authUser = await supabaseAdmin.auth.admin.getUserById(data.users.id);
+
+  const member = { ...data.users, email: authUser.data.user?.email };
+
+  return member;
+}
+
 async function getMembers() {
   const { data, error } = await supabaseAdmin
     .from('subscriptions')
