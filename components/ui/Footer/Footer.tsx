@@ -77,7 +77,7 @@ export default function Footer() {
             <img
               src="/logo-lb.svg"
               alt="Lighting Beetle* logo"
-              className="inline-block h-5 ml-4 text-white"
+              className="inline-block h-3 ml-2 text-white"
             />
           </a>
         </div>
