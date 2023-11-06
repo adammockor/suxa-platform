@@ -7,7 +7,7 @@ import s from './Navbar.module.css';
 import Link from 'next/link';
 import { User } from '@supabase/supabase-js';
 
-export default async function UserSessionButton({ user }: { user?: User }) {
+export default function UserSessionButton({ user }: { user?: User }) {
   const currentRoute = usePathname();
 
   const Wrapper = ({ children }: { children: React.ReactNode }) => (

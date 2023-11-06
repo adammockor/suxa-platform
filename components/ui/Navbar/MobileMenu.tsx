@@ -7,8 +7,10 @@ import {
   CollapsibleTrigger
 } from '../ui/collapsible';
 import { NavMenuList } from './NavMenu';
+import UserSessionButton from './UserSessionButton';
+import { User } from '@supabase/supabase-js';
 
-export default function MobileMenu() {
+export default function MobileMenu({ user }: { user?: User }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -23,6 +25,7 @@ export default function MobileMenu() {
       <CollapsibleContent>
         <nav className="flex flex-col items-end">
           <NavMenuList />
+          <UserSessionButton user={user} />
         </nav>
       </CollapsibleContent>
     </Collapsible>

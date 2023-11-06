@@ -6,7 +6,6 @@ import s from './Navbar.module.css';
 import NavMenu from './NavMenu';
 import UserSessionButton from './UserSessionButton';
 import { getSession } from '@/app/supabase-server';
-import MobileMeni from './MobileMenu';
 import MobileMenu from './MobileMenu';
 
 export default async function Navbar() {
@@ -33,7 +32,7 @@ export default async function Navbar() {
               <UserSessionButton user={user} />
             </div>
             <div className="lg:hidden">
-              <MobileMenu />
+              <MobileMenu user={user} />
             </div>
           </div>
         </div>
