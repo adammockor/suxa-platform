@@ -1,7 +1,6 @@
 'use client';
 
-import { experimental_useFormStatus as useFormStatus } from 'react-dom';
-import { experimental_useFormState as useFormState } from 'react-dom';
+import { useFormStatus, useFormState } from 'react-dom';
 import Button from '@/components/ui/Button';
 import { update } from './actions';
 import { User } from '@supabase/supabase-js';

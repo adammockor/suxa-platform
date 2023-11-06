@@ -2,8 +2,7 @@
 
 import { Database } from '@/types_db';
 import { User } from '@supabase/supabase-js';
-import { experimental_useFormStatus as useFormStatus } from 'react-dom';
-import { experimental_useFormState as useFormState } from 'react-dom';
+import { useFormStatus, useFormState } from 'react-dom';
 import { update } from '../profile/actions';
 import ProfileForm from '../profile/ProfileForm';
 import Button from '@/components/ui/Button';
