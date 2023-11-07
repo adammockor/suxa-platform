@@ -9,7 +9,7 @@ interface Props {
 
 function Card({ title, description, footer, children }: Props) {
   return (
-    <div className="w-full max-w-3xl m-auto mb-8 border rounded-md p border-zinc-700">
+    <div className="w-full max-w-3xl mb-auto border rounded-md border-zinc-700">
       <div className="px-5 py-4">
         {title ? <h3 className="mb-1 text-2xl font-medium">{title}</h3> : null}
         {description ? <p className="text-zinc-300">{description}</p> : null}

@@ -38,7 +38,7 @@ export default function MemberCard({ member }: { member: Member }) {
 
   return (
     <Card>
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-start gap-3 mb-4 min-h-[120px]">
         <Avatar className="h-12 w-12 text-black">
           <AvatarFallback>
             {member.name?.charAt(0)}
