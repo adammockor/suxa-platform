@@ -29,7 +29,9 @@ function GDPRConsent({ gdprConsent }: { gdprConsent?: boolean | null }) {
               defaultChecked={gdprConsent ?? false}
             />
             <label htmlFor="gdpr_consent" className="ml-2">
-              Spracovanie osobných údajov
+              <Link href="SUXA-GDPR-SsSOU_VSEOBECNY SUHLAS_ZA_06112023.doc">
+                Spracovanie osobných údajov
+              </Link>
             </label>
           </div>
         </div>
