@@ -43,8 +43,8 @@ export async function POST(req: Request) {
           trial_from_plan: true,
           metadata
         },
-        success_url: `${getURL()}/member/thank-you`,
-        cancel_url: `${getURL()}/member`
+        success_url: `${getURL()}member/thank-you`,
+        cancel_url: `${getURL()}member`
       });
 
       if (session) {
