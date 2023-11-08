@@ -57,7 +57,17 @@ export async function POST(req: Request) {
             event.type === 'customer.subscription.created'
           );
 
-          if (event.type === 'customer.subscription.created') {
+          break;
+        case 'checkout.session.completed':
+          const checkoutSession = event.data.object as Stripe.Checkout.Session;
+          if (checkoutSession.mode === 'subscription') {
+            const subscriptionId = checkoutSession.subscription;
+            await manageSubscriptionStatusChange(
+              subscriptionId as string,
+              checkoutSession.customer as string,
+              true
+            );
+
             const { current_period_end, id } = event.data
               .object as Stripe.Subscription;
 
@@ -76,18 +86,6 @@ export async function POST(req: Request) {
                 email: member.email
               });
             }
-          }
-
-          break;
-        case 'checkout.session.completed':
-          const checkoutSession = event.data.object as Stripe.Checkout.Session;
-          if (checkoutSession.mode === 'subscription') {
-            const subscriptionId = checkoutSession.subscription;
-            await manageSubscriptionStatusChange(
-              subscriptionId as string,
-              checkoutSession.customer as string,
-              true
-            );
           }
           break;
         default:
