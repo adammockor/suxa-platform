@@ -103,7 +103,11 @@ const copyBillingDetailsToCustomer = async (
       payment_method: { ...payment_method[payment_method.type] }
     })
     .eq('id', uuid);
-  if (error) throw error;
+  if (error) {
+    console.log('Error in copyBillingDetailsToCustomer');
+
+    throw error;
+  }
 };
 
 const manageSubscriptionStatusChange = async (
@@ -163,7 +167,11 @@ const manageSubscriptionStatusChange = async (
   const { error } = await supabaseAdmin
     .from('subscriptions')
     .upsert([subscriptionData]);
-  if (error) throw error;
+  if (error) {
+    console.log('Error in manageSubscriptionStatusChange');
+    console.log('subscriptionData: ', subscriptionData);
+    throw error;
+  }
   console.log(
     `Inserted/updated subscription [${subscription.id}] for user [${uuid}]`
   );
