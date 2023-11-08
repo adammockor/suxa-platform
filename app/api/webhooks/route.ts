@@ -75,6 +75,9 @@ export async function POST(req: Request) {
 
             const member = await getMember(id);
 
+            console.log('member: ', member);
+            
+
             if (member && member?.email) {
               const endPeriodDate = toDateTime(current_period_end);
 
