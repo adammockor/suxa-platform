@@ -98,7 +98,7 @@ function Members({ members }: { members?: Member[] }) {
   }
 
   return (
-    <div className="grid lg:grid-cols-3 gap-8">
+    <div className="grid lg:grid-cols-3 gap-x-8">
       {members.map((member) => (
         <MemberCard key={member.email} member={member} />
       ))}
