@@ -13,6 +13,10 @@ export default async function Registration() {
     redirect('/signin');
   }
 
+  if (!subscription) {
+    redirect('/member');
+  }
+
   const endPeriodDate = new Date(subscription?.current_period_end ?? '');
   const endPeriod = endPeriodDate
     .toLocaleDateString('sk-SK')

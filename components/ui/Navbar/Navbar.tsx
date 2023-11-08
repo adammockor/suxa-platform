@@ -5,12 +5,18 @@ import Logo from '@/components/icons/Logo';
 import s from './Navbar.module.css';
 import NavMenu from './NavMenu';
 import UserSessionButton from './UserSessionButton';
-import { getSession } from '@/app/supabase-server';
+import { getSession, getSubscription } from '@/app/supabase-server';
 import MobileMenu from './MobileMenu';
 
 export default async function Navbar() {
-  const session = await getSession();
+  const [session, subscription] = await Promise.all([
+    getSession(),
+    getSubscription()
+  ]);
+
   const user = session?.user;
+
+  const isUserMember = subscription;
 
   return (
     <nav className={s.root}>
@@ -24,7 +30,7 @@ export default async function Navbar() {
               <Logo />
             </Link>
             <div className="hidden lg:block">
-              <NavMenu user={user} />
+              {user ? <NavMenu isUserMember={isUserMember} /> : null}
             </div>
           </div>
           <div className="flex justify-end flex-1 space-x-2 lg:space-x-8">
@@ -32,7 +38,7 @@ export default async function Navbar() {
               <UserSessionButton user={user} />
             </div>
             <div className="lg:hidden">
-              <MobileMenu user={user} />
+              <MobileMenu user={user} isUserMember={isUserMember} />
             </div>
           </div>
         </div>

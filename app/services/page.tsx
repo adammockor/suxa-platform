@@ -1,4 +1,8 @@
-import { getUserDetails, getSession } from '@/app/supabase-server';
+import {
+  getUserDetails,
+  getSession,
+  getSubscription
+} from '@/app/supabase-server';
 import { redirect } from 'next/navigation';
 import Card from '../profile/Card';
 import Link from 'next/link';
@@ -6,15 +10,20 @@ import cn from 'classnames';
 import button from '@/components/ui/Button/Button.module.css';
 
 export default async function Profile() {
-  const [session, userDetails] = await Promise.all([
+  const [session, userDetails, subscription] = await Promise.all([
     getSession(),
-    getUserDetails()
+    getUserDetails(),
+    getSubscription()
   ]);
 
   const user = session?.user;
 
   if (!user || !userDetails) {
     redirect('/signin');
+  }
+
+  if (!subscription) {
+    redirect('/member');
   }
 
   return (

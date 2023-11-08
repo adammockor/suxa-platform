@@ -10,7 +10,13 @@ import { NavMenuList } from './NavMenu';
 import UserSessionButton from './UserSessionButton';
 import { User } from '@supabase/supabase-js';
 
-export default function MobileMenu({ user }: { user?: User }) {
+export default function MobileMenu({
+  user,
+  isUserMember
+}: {
+  user?: User;
+  isUserMember: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -24,7 +30,7 @@ export default function MobileMenu({ user }: { user?: User }) {
       </CollapsibleTrigger>
       <CollapsibleContent>
         <nav className="flex flex-col items-end">
-          <NavMenuList />
+          <NavMenuList isUserMember={isUserMember} />
           <UserSessionButton user={user} />
         </nav>
       </CollapsibleContent>
