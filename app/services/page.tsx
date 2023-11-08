@@ -62,6 +62,7 @@ function CardSlack() {
       <Link
         href="https://suxa.slack.com/"
         className={cn(button.root, button.slim)}
+        target="_blank"
       >
         Slack
       </Link>
@@ -80,6 +81,7 @@ function CardSlite() {
       <Link
         href="https://suxa.slite.com/"
         className={cn(button.root, button.slim)}
+        target="_blank"
       >
         Slite
       </Link>
@@ -113,6 +115,7 @@ function CardCommunityProject() {
       <Link
         href="https://suxa.slite.com/app/docs/oAARYmfwBKlv7B"
         className={cn(button.root, button.slim)}
+        target="_blank"
       >
         Podpora pre nápady
       </Link>
