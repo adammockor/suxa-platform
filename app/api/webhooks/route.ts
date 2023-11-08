@@ -70,26 +70,26 @@ export async function POST(req: Request) {
               true
             );
 
-            const { current_period_end, id } = event.data
-              .object as Stripe.Subscription;
+            const { subscription } = checkoutSession;
 
-            const member = await getMember(id);
+            if (subscription) {
+              const member = await getMember(subscription as string);
 
-            console.log('member: ', member);
-            
+              console.log('member: ', member);
 
-            if (member && member?.email) {
-              const endPeriodDate = toDateTime(current_period_end);
+              if (member && member?.email) {
+                // const endPeriodDate = toDateTime(current_period_end);
 
-              const endPeriod = endPeriodDate
-                .toLocaleDateString('sk-SK')
-                .replaceAll(' ', '');
+                // const endPeriod = endPeriodDate
+                //   .toLocaleDateString('sk-SK')
+                //   .replaceAll(' ', '');
 
-              await sendEmailWelcome({
-                endPeriod,
-                name: member?.name,
-                email: member.email
-              });
+                await sendEmailWelcome({
+                  endPeriod: 'test',
+                  name: member?.name,
+                  email: member.email
+                });
+              }
             }
           }
           break;
