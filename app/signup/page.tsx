@@ -15,7 +15,7 @@ export default async function SignIn() {
       <div className="align-center">
         <h1 className="text-center">Registrácia</h1>
         <p className="mb-8 text-center">
-          Prvým krokom registrácie nového člena SUXA je overenie emailovej
+          Tešíme sa, že sa k nám pridávaš! Začni zadaním svojej e-mailovej
           adresy.
         </p>
       </div>

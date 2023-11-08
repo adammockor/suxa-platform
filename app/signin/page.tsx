@@ -15,7 +15,7 @@ export default async function SignIn() {
       <div className="align-center">
         <h1 className="text-center">Prihlásenie</h1>
         <p className="mb-8 text-center">
-          Pomocou emailu sa prihlásite do členskej zóny.
+          Pre prihlásenie do členskej zóny zadaj svoj e-mail
         </p>
       </div>
       <div className="flex flex-col justify-between max-w-lg p-3 m-auto w-80 ">

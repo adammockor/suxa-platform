@@ -19,13 +19,13 @@ export default function AuthUI() {
         localization={{
           variables: {
             magic_link: {
-              email_input_label: 'Email',
-              email_input_placeholder: 'Vaša emailová adresa',
-              button_label: 'Registrovať',
-              loading_button_label: 'Posielam overovací email ...',
+              email_input_label: 'E-mail',
+              email_input_placeholder: 'Tvoja e-mailová adresa',
+              button_label: 'Overiť',
+              loading_button_label: 'Posielam overovací e-mail ...',
               // link_text: 'Pošli overovací email',
               confirmation_text:
-                'Do Vašej e-mailovej schránky sme Vám poslali potvrdzovací e-mail.'
+                'Super! Poslali sme ti overovací e-mail, v ktorom nájdeš link. Pre pokračovanie registrácie naň klikni.'
             }
           }
         }}

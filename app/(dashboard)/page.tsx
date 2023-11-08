@@ -29,7 +29,7 @@ export default async function Dashboard() {
     return (
       <>
         <p className="max-w-2xl m-auto mb-8 mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-          Členský príspevok ešte nemáš uhradený.
+          Táto sekcia je dostupná až po uhradení členského príspevku.
         </p>
         <Link
           className={cn(
@@ -41,7 +41,7 @@ export default async function Dashboard() {
           )}
           href={'/member'}
         >
-          Ísť do Moje členské
+          Uhradiť členské
         </Link>
       </>
     );

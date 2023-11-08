@@ -44,13 +44,13 @@ export function NavMenuList({ isUserMember }: { isUserMember: boolean }) {
         href="/profile"
         className={cn(s.link, currentRoute === '/profile' && s.current)}
       >
-        Môj profil
+        Profil
       </Link>
       <Link
         href="/member"
         className={cn(s.link, currentRoute === '/member' && s.current)}
       >
-        Moje členské
+        Členské
       </Link>
     </>
   );
