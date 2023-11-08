@@ -26,7 +26,11 @@ export default async function Navbar() {
       <div className="max-w-6xl px-4 py-4 lg:px-6 lg:py-6 mx-auto">
         <div className="relative flex flex-row justify-between align-center">
           <div className="flex">
-            <Link href="/" className={s.logo} aria-label="Logo">
+            <Link
+              href="https://www.suxa.sk/"
+              className={s.logo}
+              aria-label="Logo"
+            >
               <Logo />
             </Link>
             <div className="hidden lg:block">
