@@ -60,8 +60,7 @@ export async function POST(req: Request) {
           break;
         case 'checkout.session.completed':
           const checkoutSession = event.data.object as Stripe.Checkout.Session;
-          console.log('checkoutSession: ', checkoutSession);
-          
+
           if (checkoutSession.mode === 'subscription') {
             const subscriptionId = checkoutSession.subscription;
             await manageSubscriptionStatusChange(
@@ -71,25 +70,19 @@ export async function POST(req: Request) {
             );
 
             const { subscription } = checkoutSession;
+            const member = await getMember(subscription as string);
 
-            if (subscription) {
-              const member = await getMember(subscription as string);
+            if (member && member?.email) {
+              const endPeriodDate = new Date(member.current_period_end);
+              const endPeriod = endPeriodDate
+                .toLocaleDateString('sk-SK')
+                .replaceAll(' ', '');
 
-              console.log('member: ', member);
-
-              if (member && member?.email) {
-                // const endPeriodDate = toDateTime(current_period_end);
-
-                // const endPeriod = endPeriodDate
-                //   .toLocaleDateString('sk-SK')
-                //   .replaceAll(' ', '');
-
-                await sendEmailWelcome({
-                  endPeriod: 'test',
-                  name: member?.name,
-                  email: member.email
-                });
-              }
+              await sendEmailWelcome({
+                endPeriod,
+                name: member?.name,
+                email: member.email
+              });
             }
           }
           break;

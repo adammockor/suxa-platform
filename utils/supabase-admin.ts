@@ -129,8 +129,6 @@ const manageSubscriptionStatusChange = async (
     expand: ['default_payment_method']
   });
 
-  console.log(subscription);
-  
   // Upsert the latest status of the subscription object.
   const subscriptionData: Database['public']['Tables']['subscriptions']['Insert'] =
     {
@@ -170,11 +168,7 @@ const manageSubscriptionStatusChange = async (
   const { error } = await supabaseAdmin
     .from('subscriptions')
     .upsert([subscriptionData]);
-  if (error) {
-    console.log('Error in manageSubscriptionStatusChange');
-    console.log('subscriptionData: ', subscriptionData);
-    throw error;
-  }
+  if (error) throw error;
   console.log(
     `Inserted/updated subscription [${subscription.id}] for user [${uuid}]`
   );
@@ -189,13 +183,13 @@ const manageSubscriptionStatusChange = async (
     );
 };
 
-export async function getMember(uuid: string) {
+export async function getMember(subscriptionId: string) {
   const { data, error } = await supabaseAdmin
     .from('subscriptions')
     .select(
-      'users (id, name, surename, job_role, email_visible, organization, years_of_experience, bio, linkedin, website, city, interests)'
+      'current_period_end, users (id, name, surename, job_role, email_visible, organization, years_of_experience, bio, linkedin, website, city, interests)'
     )
-    .eq('id', uuid)
+    .eq('id', subscriptionId)
     .single();
 
   if (error) throw error;
@@ -205,7 +199,11 @@ export async function getMember(uuid: string) {
 
   const authUser = await supabaseAdmin.auth.admin.getUserById(data.users.id);
 
-  const member = { ...data.users, email: authUser.data.user?.email };
+  const member = {
+    current_period_end: data.current_period_end,
+    ...data.users,
+    email: authUser.data.user?.email
+  };
 
   return member;
 }
