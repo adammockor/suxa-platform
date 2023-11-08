@@ -78,7 +78,7 @@ function CardSlite() {
         <li>pridaj sa k pracovným skupinám a buď aktívny</li>
       </ul>
       <Link
-        href="/https://suxa.slite.com/"
+        href="https://suxa.slite.com/"
         className={cn(button.root, button.slim)}
       >
         Slite
