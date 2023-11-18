@@ -47,7 +47,8 @@ export async function update(_: any, formData: FormData) {
       email_visible,
       interests,
       expectations,
-      gdpr_consent: !!gdpr_consent
+      // gdpr_consents is not always a option
+      gdpr_consent: gdpr_consent === null ? undefined : gdpr_consent === 'on'
     })
     .eq('id', user?.id);
 
