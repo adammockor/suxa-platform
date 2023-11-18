@@ -22,7 +22,29 @@ export default async function Dashboard() {
     !userDetails?.job_role || !userDetails?.name || !userDetails?.surename;
 
   if (!session) {
-    redirect('/profile');
+    redirect('/signin');
+  }
+
+  if (profileIncomplete) {
+    return (
+      <>
+        <p className="max-w-2xl m-auto mb-8 mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
+          Pomôž ostatným lepšie ťa spoznať. Vyplň pár detailov o sebe.
+        </p>
+        <Link
+          className={cn(
+            button.root,
+            button.cta,
+            button.slim,
+            'max-w-max',
+            'self-center'
+          )}
+          href={'/registration'}
+        >
+          Ísť do Registrácie
+        </Link>
+      </>
+    );
   }
 
   if (!subscription) {
@@ -42,28 +64,6 @@ export default async function Dashboard() {
           href={'/member'}
         >
           Uhradiť členské
-        </Link>
-      </>
-    );
-  }
-
-  if (profileIncomplete) {
-    return (
-      <>
-        <p className="max-w-2xl m-auto mb-8 mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-          Pomôž ostatným lepšie ťa spoznať. Vyplň pár detailov o sebe.
-        </p>
-        <Link
-          className={cn(
-            button.root,
-            button.cta,
-            button.slim,
-            'max-w-max',
-            'self-center'
-          )}
-          href={'/profile'}
-        >
-          Ísť do Profilu
         </Link>
       </>
     );
