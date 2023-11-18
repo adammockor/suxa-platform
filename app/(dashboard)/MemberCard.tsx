@@ -39,6 +39,10 @@ export default function MemberCard({ member }: { member: Member }) {
     interests
   } = member;
 
+  if (!email && !name && !surename) {
+    return null;
+  }
+
   return (
     <Card>
       <div className="grid grid-cols-[48px_minmax(100px,_1fr)] gap-3 mb-4 min-h-[120px]">
@@ -52,7 +56,7 @@ export default function MemberCard({ member }: { member: Member }) {
         </div>
         <div className="gap-0.5 text-xs">
           <div className="font-semibold text-xl">
-            {name && surename ? (
+            {name || surename ? (
               <>
                 {name} {surename}
               </>
