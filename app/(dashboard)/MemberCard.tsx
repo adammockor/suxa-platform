@@ -26,6 +26,9 @@ export type Member = {
 export default function MemberCard({ member }: { member: Member }) {
   const [isOpen, setIsOpen] = useState(false);
   const {
+    name,
+    surename,
+    job_role,
     bio,
     linkedin,
     website,
@@ -38,19 +41,27 @@ export default function MemberCard({ member }: { member: Member }) {
 
   return (
     <Card>
-      <div className="flex items-start gap-3 mb-4 min-h-[120px]">
-        <Avatar className="h-12 w-12 text-black">
-          <AvatarFallback>
-            {member.name?.charAt(0)}
-            {member.surename?.charAt(0)}
-          </AvatarFallback>
-        </Avatar>
-        <div className="grid gap-0.5 text-xs">
+      <div className="grid grid-cols-[48px_minmax(100px,_1fr)] gap-3 mb-4 min-h-[120px]">
+        <div>
+          <Avatar className="h-12 w-12 text-black">
+            <AvatarFallback>
+              {name?.charAt(0)}
+              {surename?.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
+        </div>
+        <div className="gap-0.5 text-xs">
           <div className="font-semibold text-xl">
-            {member.name} {member.surename}
+            {name && surename ? (
+              <>
+                {name} {surename}
+              </>
+            ) : (
+              <div className="truncate">{email}</div>
+            )}
           </div>
           <div className="text-zinc-300">
-            {member.job_role} v {organization}
+            {job_role} {organization ? <>v {organization}</> : null}
           </div>
           {city ? <div className="text-zinc-300">{city}</div> : null}
           {years_of_experience ? (
@@ -61,30 +72,36 @@ export default function MemberCard({ member }: { member: Member }) {
         </div>
       </div>
       <div className="flex justify-between">
-        <Collapsible open={isOpen} onOpenChange={setIsOpen} className="text-sm">
-          <CollapsibleTrigger>
-            <div className="text-left w-full flex justify-between items-start">
-              O mne {isOpen ? <IconChevronUp /> : <IconChevronDown />}
-            </div>
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <div className="mt-2">
-              {bio ? (
-                <p className="mb-2">
-                  <span className="font-semibold">Bio:</span> {bio}
-                  <br />
-                </p>
-              ) : null}
-              {interests ? (
-                <p>
-                  <span className="font-semibold">Záujmy:</span> {interests}
-                  <br />
-                </p>
-              ) : null}
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
-        <div className="flex space-x-2">
+        {!bio && !interests ? null : (
+          <Collapsible
+            open={isOpen}
+            onOpenChange={setIsOpen}
+            className="text-sm"
+          >
+            <CollapsibleTrigger>
+              <div className="text-left w-full flex justify-between items-start">
+                O mne {isOpen ? <IconChevronUp /> : <IconChevronDown />}
+              </div>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="mt-2">
+                {bio ? (
+                  <p className="mb-2">
+                    <span className="font-semibold">Bio:</span> {bio}
+                    <br />
+                  </p>
+                ) : null}
+                {interests ? (
+                  <p>
+                    <span className="font-semibold">Záujmy:</span> {interests}
+                    <br />
+                  </p>
+                ) : null}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+        )}
+        <div className="flex space-x-2 ml-auto">
           {email ? (
             <Link
               href={`mailto:${email}`}
