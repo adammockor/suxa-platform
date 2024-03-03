@@ -65,5 +65,3 @@ yarn dev
 Note that webhook forwarding and the development server must be running concurrently in two separate terminals for the application to work correctly.
 
 Finally, navigate to [http://localhost:3000](http://localhost:3000) in your browser to see the application rendered.
-
-
