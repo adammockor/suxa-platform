@@ -75,6 +75,12 @@ INSERT INTO "public"."users" ("id", "avatar_url", "billing_address", "payment_me
 INSERT INTO "public"."subscriptions" ("id", "user_id", "status", "metadata", "price_id", "quantity", "cancel_at_period_end", "created", "current_period_start", "current_period_end", "ended_at", "cancel_at", "canceled_at", "trial_start", "trial_end") VALUES
 	('sub_1OqJhOCXlKYfP6nJUMHUaj1i', 'cc83eb5c-a340-485e-a304-baae2f4ce8a2', 'active', '{}', 'price_1OqJa8CXlKYfP6nJY7u4xfef', 1, false, '2024-03-03 18:53:46+00', '2024-03-03 18:53:46+00', '2025-03-03 18:53:46+00', NULL, NULL, NULL, NULL, NULL);
 
+--
+-- Data for Name: user_roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "public"."user_roles" ("id", "user_id", "role") VALUES
+	('1', 'cc83eb5c-a340-485e-a304-baae2f4ce8a2', 'admin');
 
 --
 -- PostgreSQL database dump complete

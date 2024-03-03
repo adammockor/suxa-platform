@@ -66,3 +66,17 @@ export const getActiveProductsWithPrices = async () => {
   }
   return data ?? [];
 };
+
+export async function getUserRoles() {
+  const supabase = createServerSupabaseClient();
+  try {
+    let { data } = await supabase.from('user_roles').select(`*`);
+
+    const roles = data?.map((item) => item.role);
+
+    return roles;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
