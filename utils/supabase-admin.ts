@@ -209,15 +209,23 @@ export async function getMember(subscriptionId: string) {
 }
 
 async function getMembers() {
-  const { data, error } = await supabaseAdmin.from('members').select('*');
+  const { data, error } = await supabaseAdmin
+    .from('subscriptions')
+    .select(
+      'current_period_start, users (id, name, surename, email, job_role, email_visible, organization, years_of_experience, bio, linkedin, website, city, interests)'
+    )
+    .eq('status', 'active')
+    .order('current_period_start', { ascending: false });
 
-  if (!data) {
-    return;
+  if (!data?.length) {
+    return [];
   }
 
   if (error) throw error;
 
-  return data;
+  const members = data.map((item) => item.users!);
+
+  return members ?? [];
 }
 
 export {
