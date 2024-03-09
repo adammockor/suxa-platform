@@ -11,7 +11,7 @@ CREATE TABLE public.user_roles (
 COMMENT ON TABLE public.user_roles IS 'Application roles for each user.';
 
 -- authorize with role-based access control (RBAC)
-CREATE FUNCTION public.authorize(user_id uuid) RETURNS boolean AS $ $ declare bind_permissions int;
+CREATE FUNCTION public.authorize(user_id uuid) RETURNS boolean AS $$ declare bind_permissions int;
 BEGIN
 SELECT
   count(*)
