@@ -209,38 +209,15 @@ export async function getMember(subscriptionId: string) {
 }
 
 async function getMembers() {
-  const { data, error } = await supabaseAdmin
-    .from('subscriptions')
-    .select(
-      'current_period_start, users (id, name, surename, job_role, email_visible, organization, years_of_experience, bio, linkedin, website, city, interests)'
-    )
-    .eq('status', 'active')
-    .order('current_period_start', { ascending: false });
+  const { data, error } = await supabaseAdmin.from('members').select('*');
 
   if (!data) {
     return;
   }
 
-  const users = await Promise.all(
-    data.map(async (item) => {
-      let email;
-
-      // we should get this in batch - custom Supabase RPC function?
-      if (item.users?.email_visible) {
-        const authUser = await supabaseAdmin.auth.admin.getUserById(
-          item.users.id
-        );
-
-        email = authUser.data.user?.email;
-      }
-
-      return { ...item.users, email };
-    })
-  );
-
   if (error) throw error;
 
-  return users;
+  return data;
 }
 
 export {
