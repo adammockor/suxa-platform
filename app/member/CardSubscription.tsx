@@ -34,7 +34,7 @@ function CardSubscription({
   products: ProductWithPrices[];
 }) {
   const productClenske = products.find(
-    (product) => product.id === 'prod_PfetHZexsaB1VB'
+    (product) => product.id === 'prod_OyC2BoQitp16Ll'
   );
 
   const subscriptionPrice =
