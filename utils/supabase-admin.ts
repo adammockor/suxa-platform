@@ -1,18 +1,11 @@
 import { toDateTime } from './helpers';
 import { stripe } from './stripe';
-import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
 import type { Database } from 'types_db';
+import { supabaseAdmin } from './supabase-client-admin';
 
 type Product = Database['public']['Tables']['products']['Row'];
 type Price = Database['public']['Tables']['prices']['Row'];
-
-// Note: supabaseAdmin uses the SERVICE_ROLE_KEY which you must only use in a secure server-side context
-// as it has admin privileges and overwrites RLS policies!
-const supabaseAdmin = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
-);
 
 const upsertProductRecord = async (product: Stripe.Product) => {
   const productData: Product = {
@@ -212,7 +205,7 @@ async function getMembers() {
   const { data, error } = await supabaseAdmin
     .from('subscriptions')
     .select(
-      'current_period_start, users (id, name, surename, email, job_role, email_visible, organization, years_of_experience, bio, linkedin, website, city, interests)'
+      'current_period_start, users (id, name, surename, job_role, email_visible, organization, years_of_experience, bio, linkedin, website, city, interests, auth_users(email))'
     )
     .eq('status', 'active')
     .order('current_period_start', { ascending: false });
@@ -223,9 +216,16 @@ async function getMembers() {
 
   if (error) throw error;
 
-  const members = data.map((item) => item.users!);
+  const members = data.map((item) => {
+    // @ts-ignore not sure why the type not exists
+    const { auth_users, ...other } = item.users;
+    return {
+      ...other,
+      email: other.email_visible ? auth_users.email : null
+    };
+  });
 
-  return members ?? [];
+  return members;
 }
 
 export {
